@@ -7,10 +7,13 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { CorsOptions } from 'cors';
 import * as cookieParser from 'cookie-parser';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import {resolve } from 'path';
+
 const cors = require('cors');
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { rawBody: true });
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, { rawBody: true });
 
   // CORS configuration
   const dnsWhiteList = ['http://localhost:3000'];
@@ -30,6 +33,10 @@ async function bootstrap() {
 
   app.use(cors(corsOptions));
   app.use(cookieParser());
+  app.setBaseViewsDir(resolve('./src/frontend/templates'));
+  app.useStaticAssets(resolve('./src/frontend/static'));
+  app.setViewEngine('hbs');
+
   await app.listen(3000);
 }
 bootstrap();
