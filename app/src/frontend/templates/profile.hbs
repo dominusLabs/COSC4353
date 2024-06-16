@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile Management</title>
     <link rel="stylesheet" href="/public/css/profile.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
 </head>
 <body>
     <div class="profile-container">
@@ -44,6 +47,8 @@
                 <select id="skills" name="skills" multiple required>
                     <option value="programming">Programming</option>
                     <option value="design">Design</option>
+                    <option value="management">Management</option>
+                    <option value="sales">Sales</option>
                     <!-- Add more skills here -->
                 </select>
             </div>
@@ -61,4 +66,15 @@
         </form>
     </div>
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var elem = document.getElementById('skills');
+        var choices = new Choices(elem, {
+            removeItemButton: true, // Allows users to remove selected items
+            maxItemCount: 5, // Limits the number of items that can be selected
+            searchEnabled: true, // Enables searching within the options
+        });
+    });
+</script>
+
 </html>

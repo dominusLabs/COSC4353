@@ -39,7 +39,7 @@ h1 {
 }
 
 .input-group select[multiple] {
-    height: auto;
+    height: 150px; /* Adjust height to show multiple options */
 }
 
 .buttons button {
