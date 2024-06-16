@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="/public/css/profile.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
     <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>
 <body>
     <div class="profile-container">
@@ -40,7 +41,7 @@
             </div>
             <div class="input-group">
                 <label for="zipcode">Zip code</label>
-                <input type="text" id="zipcode" name="zipcode" pattern="\\d{5}(-\\d{4})?" title="Enter a 5 or 9 digit zip code" required>
+                <input type="text" id="zipcode" name="zipcode" title="Enter a 5 or 9 digit zip code" required>
             </div>
             <div class="input-group">
                 <label for="skills">Skills</label>
@@ -58,7 +59,7 @@
             </div>
             <div class="input-group">
                 <label for="availability">Availability</label>
-                <input type="date" id="availability" name="availability" multiple required>
+                <input type="text" id="availability" name="availability" placeholder="Select dates" required>
             </div>
             <div class="buttons">
                 <button type="submit">Save Changes</button>
@@ -66,13 +67,26 @@
         </form>
     </div>
 </body>
+<script src="/public/js/profile.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        var elem = document.getElementById('skills');
-        var choices = new Choices(elem, {
-            removeItemButton: true, // Allows users to remove selected items
-            maxItemCount: 5, // Limits the number of items that can be selected
-            searchEnabled: true, // Enables searching within the options
+        flatpickr("#availability", {
+            mode: "multiple",
+            dateFormat: "Y-m-d",
+            enableTime: false,
+            minDate: "today",
+            "locale": {
+                "firstDayOfWeek": 1 
+            }
+        });
+
+    const skillsElement = document.getElementById('skills');
+    const choices = new Choices(skillsElement, {
+        removeItemButton: true,
+        searchEnabled: true,
+        placeholderValue: "Select skills",
+        noChoicesText: "No more options",
+        itemSelectText: "Click to select"
         });
     });
 </script>

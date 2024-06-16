@@ -7,15 +7,17 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .profile-container {
     background: #fff;
     padding: 20px;
     border-radius: 5px;
-    width: 500px;
+    max-width: 500px;
+    width: 100%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px;
 }
 
 h1 {
@@ -31,7 +33,9 @@ h1 {
     margin-bottom: 5px;
 }
 
-.input-group input[type="text"], .input-group select, .input-group textarea {
+.input-group input[type="text"],
+.input-group select,
+.input-group textarea {
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
@@ -39,7 +43,8 @@ h1 {
 }
 
 .input-group select[multiple] {
-    height: 150px; /* Adjust height to show multiple options */
+    height: auto;
+    min-height: 100px;
 }
 
 .buttons button {
@@ -62,4 +67,22 @@ textarea {
 
 input[type="date"] {
     cursor: pointer;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .profile-container {
+        width: 90%;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .input-group label,
+    .input-group input,
+    .input-group select,
+    .input-group textarea,
+    .buttons button {
+        font-size: 14px; /* Smaller font size for smaller screens */
+    }
 }
