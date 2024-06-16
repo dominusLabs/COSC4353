@@ -50,23 +50,22 @@ export class SupabaseService {
     return !!data && !error;
   }
 
-
-  get AuthDBService() {
+  get AuthDBService(): AuthDBService {
     return new AuthDBService();
   }
-  get EventDBService() {
+  get EventDBService(): EventDBService {
     return new EventDBService();
   }
-  get NotificationDBService() {
+  get NotificationDBService(): NotificationDBService {
     return new NotificationDBService();
   }
-  get PricingDBService() {
+  get PricingDBService(): PricingDBService {
     return new PricingDBService();
   }
-  get ProfileDBService() {
+  get ProfileDBService(): ProfileDBService {
     return new ProfileDBService();
   }
-  get VolunteerDBService() {
+  get VolunteerDBService(): VolunteerDBService {
     return new VolunteerDBService();
   }
 }

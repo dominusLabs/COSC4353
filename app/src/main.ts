@@ -34,7 +34,10 @@ async function bootstrap() {
   app.use(cors(corsOptions));
   app.use(cookieParser());
   app.setBaseViewsDir(resolve('./src/frontend/templates'));
-  app.useStaticAssets(resolve('./src/frontend/static'));
+  app.useStaticAssets(resolve('./src/frontend/static'), {
+    prefix: '/public/',
+  });
+
   app.setViewEngine('hbs');
 
   await app.listen(3000);

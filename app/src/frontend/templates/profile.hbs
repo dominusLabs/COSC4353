@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile Management</title>
+    <link rel="stylesheet" href="/public/css/profile.css">
+</head>
+<body>
+    <div class="profile-container">
+        <h1>User Profile Management</h1>
+        <form action="#" method="POST">
+            <div class="input-group">
+                <label for="fullname">Full Name</label>
+                <input type="text" id="fullname" name="fullname" maxlength="50" required>
+            </div>
+            <div class="input-group">
+                <label for="address1">Address 1</label>
+                <input type="text" id="address1" name="address1" maxlength="100" required>
+            </div>
+            <div class="input-group">
+                <label for="address2">Address 2</label>
+                <input type="text" id="address2" name="address2" maxlength="100">
+            </div>
+            <div class="input-group">
+                <label for="city">City</label>
+                <input type="text" id="city" name="city" maxlength="100" required>
+            </div>
+            <div class="input-group">
+                <label for="state">State</label>
+                <select id="state" name="state" required>
+                    <!-- Example states -->
+                    <option value="CA">California</option>
+                    <option value="NY">New York</option>
+                    <!-- Add more states here -->
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="zipcode">Zip code</label>
+                <input type="text" id="zipcode" name="zipcode" pattern="\\d{5}(-\\d{4})?" title="Enter a 5 or 9 digit zip code" required>
+            </div>
+            <div class="input-group">
+                <label for="skills">Skills</label>
+                <select id="skills" name="skills" multiple required>
+                    <option value="programming">Programming</option>
+                    <option value="design">Design</option>
+                    <!-- Add more skills here -->
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="preferences">Preferences</label>
+                <textarea id="preferences" name="preferences"></textarea>
+            </div>
+            <div class="input-group">
+                <label for="availability">Availability</label>
+                <input type="date" id="availability" name="availability" multiple required>
+            </div>
+            <div class="buttons">
+                <button type="submit">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
