@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{title}}</title>
+  <link rel="stylesheet" href="/public/css/styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+    <a href="/events">Events</a>
+    {{#if user}}
+      <a href="/profile">Profile</a>
+      <a href="/events">Manage Events</a>
+      <a href="/volunteer-matching">Match Volunteers</a>
+      <a href="/notifications">Notifications</a>
+      <a href="/volunteer-history">Volunteer History</a>
+      <a href="/api/auth/logout">Logout</a>
+    {{else}}
+      <a href="/api/auth/login">Login</a>
+      <a href="/api/auth/register">Register</a>
+    {{/if}}
+  </nav>
+  <div class="container">
+    {{{body}}}
+  </div>
+  <script src="/public/js/scripts.js"></script>
+</body>
+</html>
