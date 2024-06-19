@@ -1,0 +1,129 @@
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+nav {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.social-icon {
+    margin-right: 10px;
+    color: black;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.social-icon:hover {
+    color: #007bff;
+}
+
+.help-section {
+    margin-bottom: 30px;
+}
+  
+.help-section h2 {
+    color: #007bff;
+    margin-bottom: 15px;
+}
+  
+.help-section ol,
+.help-section ul {
+    margin-left: 20px;
+}
+  
+.help-section .faq h3 {
+    color: #343a40;
+    margin-top: 20px;
+}
+  
+.help-section .faq p {
+    color: #666;
+    margin-bottom: 15px;
+}
+  
+.help-section ul li a {
+    color: #007bff;
+    text-decoration: none;
+}
+  
+.help-section ul li a:hover {
+    text-decoration: underline;
+}
+
+.under-construction {
+    border: 2px dashed #ffcc00;
+    padding: 20px;
+    margin: 20px 0;
+    background-color: #fffbea;
+    text-align: center;
+    border-radius: 5px;
+}
+  
+.under-construction h2 {
+    color: #d9534f;
+    margin-bottom: 10px;
+}
+  
+.under-construction p {
+    color: #666;
+    margin: 0;
+}
+
+.login-container {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+.register-container {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input-group input[type="text"],
+.input-group select,
+.input-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.input-group select[multiple] {
+    height: auto;
+    min-height: 100px;
+}
+
+.buttons button {
+    width: 100%;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.buttons button:hover {
+    background-color: #555;
+}
+
+.buttons a {
+    text-decoration: none;
+}

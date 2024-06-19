@@ -8,7 +8,8 @@ import { AppModule } from './app.module';
 import { CorsOptions } from 'cors';
 import * as cookieParser from 'cookie-parser';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import {resolve } from 'path';
+import path, {resolve } from 'path';
+import * as hbs from 'hbs';
 
 const cors = require('cors');
 
@@ -37,8 +38,8 @@ async function bootstrap() {
   app.useStaticAssets(resolve('./src/frontend/static'), {
     prefix: '/public/',
   });
-
   app.setViewEngine('hbs');
+  hbs.registerPartials(resolve('./src/frontend/templates/partials'));
 
   await app.listen(3000);
 }

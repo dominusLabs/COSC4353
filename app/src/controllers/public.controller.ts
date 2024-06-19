@@ -29,8 +29,11 @@ export class PublicController {
     getEvent() {
         return {};
     }
-    // async getEvents() {
-    //     const events = await this.eventService.findAll();
-    //     return { events };
-    // }
+    
+    @Get('help')
+    @Render('help')
+    getHelp() {
+        return {};
+    }
+
 }
