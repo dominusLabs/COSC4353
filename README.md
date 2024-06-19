@@ -50,8 +50,6 @@ git clone https://github.com/dominusLabs/COSC4353
 2. Change directory:
 ```bash
 cd app
-npm install
-npm run start:dev
 ```
 
 3. Install dependencies:
@@ -59,10 +57,15 @@ npm run start:dev
 npm install
 ```
 
-4. Run App:
+4. Run app:
 ```bash
+# development
+npm run start
+```
+```bash
+# watch mode
 npm run start:dev
 ```
 
-5. Open Link:
-[http://localhost:3000/](http://localhost:3000/)
+5. Open link:
+[A Non-Profit Organization](http://localhost:3000/)
