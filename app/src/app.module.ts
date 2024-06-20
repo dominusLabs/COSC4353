@@ -15,11 +15,13 @@ import { ProfileService } from './services/profile.service';
 import { VolunteerService } from './services/volunteer.service';
 
 import { SupabaseService } from './libs/db/supabase.service';
+import { HomeController } from './controllers/home.controller';
+import { PublicController } from './controllers/public.controller';
 
 
 @Module({
   imports: [],
-  controllers: [AuthController, EventController, NotificationController, PricingController, ProfileController, VolunteerController],
+  controllers: [AuthController, EventController, NotificationController, PricingController, ProfileController, VolunteerController, HomeController, PublicController],
   providers: [AuthService, EventService, NotificationService, PricingService, ProfileService, VolunteerService, SupabaseService],
 })
 
