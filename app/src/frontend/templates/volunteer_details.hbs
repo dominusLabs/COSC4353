@@ -1,0 +1,56 @@
+{{#> layout}}
+  <title>User Profile</title>
+  <link rel="stylesheet" href="/public/css/volunteer_details.css">
+  <script src="/public/js/volunteer_details.js"></script>
+
+  <link rel="stylesheet" href="/public/css/pagination.css">
+  <script src="/public/js/pagination.js"></script>
+
+  <div class="profile-container">
+      <div class="profile-details">
+          <h3>User Profile</h3>
+          <div class="detail-box">
+              <p><strong>Full Name:</strong> John Doe</p>
+          </div>
+          <div class="detail-box">
+              <p><strong>Address 1:</strong> 123 Main St</p>
+          </div>
+          <div class="detail-box">
+              <p><strong>Address 2:</strong> Apt 4B</p>
+          </div>
+          <div class="detail-box">
+              <p><strong>City:</strong> Anytown</p>
+          </div>
+          <div class="detail-box">
+              <p><strong>State:</strong> CA</p>
+          </div>
+          <div class="detail-box">
+              <p><strong>Zip Code:</strong> 12345</p>
+          </div>
+          <div class="detail-box">
+              <p><strong>Skills:</strong> Teamwork, Leadership</p>
+          </div>
+          <div class="detail-box">
+              <p><strong>Preferences:</strong> Outdoor Activities, Community Service</p>
+          </div>
+          <div class="detail-box">
+              <p><strong>Events Participated:</strong> 3</p>
+          </div>
+      </div>
+
+      <div class="table-container">
+          <h3>Event History</h3>
+          <table id="eventHistoryTable" class="table table-striped">
+              <thead>
+                  <tr>
+                      <th>Event Name</th>
+                      <th>Event Description</th>
+                      <th>Location</th>
+                      <th>Event Date</th>
+                  </tr>
+              </thead>
+              <tbody id="eventTableBody"></tbody>
+          </table>
+      </div>
+  </div>
+{{/layout}}

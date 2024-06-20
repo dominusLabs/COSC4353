@@ -1,0 +1,28 @@
+{{#> layout}}
+  <title>Volunteer Search</title>
+  <link rel="stylesheet" href="/public/css/volunteer_search.css">
+  <link rel="stylesheet" href="/public/css/pagination.css">
+  <script src="/public/js/pagination.js"></script>
+  <script src="/public/js/volunteer_search.js"></script>
+
+  <div class="table-container">
+      <h3>Volunteer Search</h3>
+      <div class="search-bar">
+          <input type="text" id="searchInput" class="form-control" placeholder="Search for volunteers...">
+      </div>
+      <table id="volunteerTable" class="table table-striped">
+          <thead>
+              <tr>
+                  <th>Volunteer Name</th>
+                  <th>Email</th>
+                  <th>Phone Number</th>
+                  <th>Skills</th>
+                  <th>Registered Date</th>
+              </tr>
+          </thead>
+          <tbody id="tableBody">
+          </tbody>
+      </table>
+      <div id="pagination" class="pagination"></div>
+  </div>
+{{/layout}}

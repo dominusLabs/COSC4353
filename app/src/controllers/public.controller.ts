@@ -36,4 +36,22 @@ export class PublicController {
         return {};
     }
 
+    @Get('volunteer_history')
+    @Render('volunteer_history')
+    getVolunteerHistory() {
+        return {};
+    }
+
+    @Get('volunteer_search')
+    @Render('volunteer_search')
+    getVolunteerSearch() {
+        return {};
+    }
+
+    @Get('volunteer_details')
+    @Render('volunteer_details')
+    getVolunteerDetails() {
+        return {};
+    }
+
 }
