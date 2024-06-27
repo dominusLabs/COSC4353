@@ -1,0 +1,27 @@
+{{#> layout}}
+  <title>Volunteer History and Login Page</title>
+  <link rel="stylesheet" href="/public/css/volunteer_history.css">
+  <link rel="stylesheet" href="/public/css/pagination.css">
+  <script src="/public/js/pagination.js"></script>
+  <script src="/public/js/volunteer_history.js"></script>
+  
+  <div class="table-container">
+      <h3>Volunteer History</h3>
+      <table id="volunteerTable" class="table table-striped">
+          <thead>
+              <tr>
+                  <th>Event Name</th>
+                  <th>Event Description</th>
+                  <th>Location</th>
+                  <th>Required Skills</th>
+                  <th>Urgency</th>
+                  <th>Event Date</th>
+                  <th>Participated</th>
+              </tr>
+          </thead>
+          <tbody id="tableBody">
+          </tbody>
+      </table>
+      <div id="pagination" class="pagination"></div>
+  </div>
+{{/layout}}
