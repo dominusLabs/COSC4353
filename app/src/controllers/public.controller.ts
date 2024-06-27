@@ -29,6 +29,12 @@ export class PublicController {
     getEvent() {
         return {};
     }
+
+    @Get('eventmanagment')
+    @Render('eventmanagment')
+    getEventManagment() {
+        return {};
+    }
     
     @Get('help')
     @Render('help')
