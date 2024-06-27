@@ -60,4 +60,10 @@ export class PublicController {
         return {};
     }
 
+    @Get('volunteer_matching')
+    @Render('volunteer_matching')
+    getVolunteerMatching() {
+        return {};
+    }
+
 }

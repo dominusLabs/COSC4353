@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer Matching</title>
+    <link rel="stylesheet" href="/public/css/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Volunteer Matching</h1>
+        <form action="#" method="POST">
+            <div class="input-group">
+                <label for="event">Select Event</label>
+                <select id="event" name="event" required>
+                    <option value="event1">Event 1</option>
+                    <option value="event2">Event 2</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="requiredSkills">Required Skills</label>
+                <select id="requiredSkills" name="requiredSkills" multiple disabled>
+                    //skills will be populated based on the selected event
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="volunteerName">Matching Volunteers</label>
+                <select id="volunteerName" name="volunteerName" multiple required>
+                    //volunteers will be populated based on matching skills/availibility
+                </select>
+            </div>
+            <div class="buttons">
+                <button type="submit">Save Match</button>
+            </div>
+        </form>
+    </div>
+    <script src="/public/js/scripts.js"></script>
+    <script src="/public/js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const eventElement = document.getElementById('event');
+            const requiredSkillsElement = document.getElementById('requiredSkills');
+            const volunteerNameElement = document.getElementById('volunteerName');
+
+            const choicesEvent = new Choices(eventElement, {
+                removeItemButton: true,
+                searchEnabled: true,
+                placeholderValue: "Select event",
+                noChoicesText: "No more options",
+                itemSelectText: "Click to select"
+            });
+
+            const choicesSkills = new Choices(requiredSkillsElement, {
+                removeItemButton: true,
+                searchEnabled: true,
+                placeholderValue: "Required skills",
+                noChoicesText: "No more options",
+                itemSelectText: "Click to select"
+            });
+
+            const choicesVolunteers = new Choices(volunteerNameElement, {
+                removeItemButton: true,
+                searchEnabled: true,
+                placeholderValue: "Matching volunteers",
+                noChoicesText: "No more options",
+                itemSelectText: "Click to select"
+            });
+
+            eventElement.addEventListener('change', function () {
+                const eventId = this.value;
+                // fetch required skills for selected event
+                fetch(`/api/events/${eventId}/skills`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // populate required skills
+                        choicesSkills.clearChoices();
+                        data.skills.forEach(skill => {
+                            choicesSkills.setChoices([{ value: skill, label: skill, selected: true }], 'value', 'label', false);
+                        });
+                        requiredSkillsElement.disabled = false;
+
+                        // fetch matching volunteers
+                        return fetch(`/api/events/${eventId}/volunteers`);
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Populate matching volunteers
+                        choicesVolunteers.clearChoices();
+                        data.volunteers.forEach(volunteer => {
+                            choicesVolunteers.setChoices([{ value: volunteer.id, label: volunteer.name }], 'value', 'label', false);
+                        });
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+            });
+        });
+    </script>
+</body>
+</html>
