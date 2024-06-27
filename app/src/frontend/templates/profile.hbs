@@ -8,40 +8,40 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
     <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>
 <body>
     <div class="profile-container">
         <h1>User Profile Management</h1>
-        <form action="#" method="POST">
-            <div class="input-group">
+        <form action="#" method="POST" class="profile-details">
+            <div class="detail-box">
                 <label for="fullname">Full Name</label>
                 <input type="text" id="fullname" name="fullname" maxlength="50" required>
             </div>
-            <div class="input-group">
+            <div class="detail-box">
                 <label for="address1">Address 1</label>
                 <input type="text" id="address1" name="address1" maxlength="100" required>
             </div>
-            <div class="input-group">
+            <div class="detail-box">
                 <label for="address2">Address 2</label>
                 <input type="text" id="address2" name="address2" maxlength="100">
             </div>
-            <div class="input-group">
+            <div class="detail-box">
                 <label for="city">City</label>
                 <input type="text" id="city" name="city" maxlength="100" required>
             </div>
-            <div class="input-group">
+            <div class="detail-box">
                 <label for="state">State</label>
                 <select id="state" name="state" required>
                     <option value="CA">California</option>
                     <option value="NY">New York</option>
                 </select>
             </div>
-            <div class="input-group">
+            <div class="detail-box">
                 <label for="zipcode">Zip code</label>
                 <input type="text" id="zipcode" name="zipcode" title="Enter a 5 or 9 digit zip code" required>
             </div>
-            <div class="input-group">
+            <div class="detail-box">
                 <label for="skills">Skills</label>
                 <select id="skills" name="skills" multiple required>
                     <option value="programming">Programming</option>
@@ -50,11 +50,11 @@
                     <option value="sales">Sales</option>
                 </select>
             </div>
-            <div class="input-group">
+            <div class="detail-box">
                 <label for="preferences">Preferences</label>
                 <textarea id="preferences" name="preferences"></textarea>
             </div>
-            <div class="input-group">
+            <div class="detail-box">
                 <label for="availability">Availability</label>
                 <input type="text" id="availability" name="availability" placeholder="Select dates" required>
             </div>
@@ -77,15 +77,14 @@
             }
         });
 
-    const skillsElement = document.getElementById('skills');
-    const choices = new Choices(skillsElement, {
-        removeItemButton: true,
-        searchEnabled: true,
-        placeholderValue: "Select skills",
-        noChoicesText: "No more options",
-        itemSelectText: "Click to select"
+        const skillsElement = document.getElementById('skills');
+        const choices = new Choices(skillsElement, {
+            removeItemButton: true,
+            searchEnabled: true,
+            placeholderValue: "Select skills",
+            noChoicesText: "No more options",
+            itemSelectText: "Click to select"
         });
     });
 </script>
-
 </html>
