@@ -11,32 +11,39 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>
 <body>
-    <div class="container">
+    <div class="form-container">
         <h1>Volunteer Matching</h1>
+
         <form action="#" method="POST">
-            <div class="input-group">
-                <label for="event">Select Event</label>
-                <select id="event" name="event" required>
+            <div class="col-12">
+                <label for="event" class="form-lable">Select Event</label>
+                <select id="event" class="form-select" name="event" required>
+                    <option value>Choose Event...</option>
                     <option value="event1">Event 1</option>
                     <option value="event2">Event 2</option>
                 </select>
             </div>
-            <div class="input-group">
-                <label for="requiredSkills">Required Skills</label>
-                <select id="requiredSkills" name="requiredSkills" multiple disabled>
-                    //skills will be populated based on the selected event
+            <div class="col-12">
+                <label for="requiredSkills" class="form-lable">Required Skills</label>
+                <select id="requiredSkills" class="form-select" name="requiredSkills" multiple required>
+                    <option value>Choose Skill...</option>
+                    <option value="skill1">Skill 1</option>
+                    <option value="skill2">Skill 2</option>
                 </select>
             </div>
-            <div class="input-group">
-                <label for="volunteerName">Matching Volunteers</label>
-                <select id="volunteerName" name="volunteerName" multiple required>
-                    //volunteers will be populated based on matching skills/availibility
+            <div class="col-12">
+                <label for="volunteerName" class="form-lable">Matching Volunteers</label>
+                <select id="volunteerName" class="form-select" name="volunteerName" multiple required>
+                    <option value>Choose Volunteer...</option>
+                    <option value="v1">Volunteer 1</option>
+                    <option value="v2">Volunteer 2</option>
                 </select>
             </div>
             <div class="buttons">
-                <button type="submit">Save Match</button>
+                <button class="btn btn-primary w-50 py-2 my-3 rounded-pill" type="submit">Save Match</button>
             </div>
         </form>
+
     </div>
     <script src="/public/js/scripts.js"></script>
     <script src="/public/js/app.js"></script>

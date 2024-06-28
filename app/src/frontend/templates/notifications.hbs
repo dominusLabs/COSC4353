@@ -1,0 +1,24 @@
+{{#> layout}}
+  <title>Notifications</title>
+  <link rel="stylesheet" href="/public/css/volunteer_history.css">
+  <link rel="stylesheet" href="/public/css/pagination.css">
+  <script src="/public/js/pagination.js"></script>
+  <script src="/public/js/notifications.js"></script>
+  
+  <div class="table-container">
+      <h3>Notifications</h3>
+      <table id="volunteerTable" class="table table-striped">
+          <thead>
+              <tr>
+                  <th>Date</th>
+                  <th>Type</th>
+                  <th>Message</th>
+                  <th>Action</th>
+              </tr>
+          </thead>
+          <tbody id="tableBody">
+          </tbody>
+      </table>
+      <div id="pagination" class="pagination"></div>
+  </div>
+{{/layout}}

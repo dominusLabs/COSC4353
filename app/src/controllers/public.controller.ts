@@ -66,4 +66,16 @@ export class PublicController {
         return {};
     }
 
+    @Get('profile')
+    @Render('profile')
+    getProfile() {
+        return {};
+    }
+
+    @Get('notifications')
+    @Render('notifications')
+    getNotifications() {
+        return {};
+    }
+
 }

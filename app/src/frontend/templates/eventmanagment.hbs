@@ -18,24 +18,27 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="form-container">
         <h1>Event Management Form</h1>
+
+
+
         <form action="#" method="POST">
-            <div class="input-group">
-                <label for="eventName">Event Name</label>
-                <input type="text" id="eventName" name="eventName" maxlength="100" required>
+            <div class="col-12">
+                <label for="eventName" class="form-lable">Event Name</label>
+                <input type="text" class="form-control" id="eventName" name="eventName" maxlength="100" required>
             </div>
-            <div class="input-group">
-                <label for="eventDescription">Event Description</label>
-                <textarea id="eventDescription" name="eventDescription" required></textarea>
+            <div class="col-12">
+                <label for="eventDescription" class="form-lable">Event Description</label>
+                <textarea id="eventDescription" class="form-control" name="eventDescription" rows="1" required></textarea>
             </div>
-            <div class="input-group">
-                <label for="location">Location</label>
-                <textarea id="location" name="location" required></textarea>
+            <div class="col-12">
+                <label for="location" class="form-lable">Location</label>
+                <input id="location" class="form-control" name="location" required></input>
             </div>
-            <div class="input-group">
-                <label for="requiredSkills">Required Skills</label>
-                <select id="requiredSkills" name="requiredSkills" multiple required>
+            <div class="col-12">
+                <label for="requiredSkills" class="form-label">Required Skills</label>
+                <select id="requiredSkills" name="requiredSkills" class="form-select" multiple required>
                     <option value="woodworking">Woodworking</option>
                     <option value="cooking">Cooking</option>
                     <option value="gardening">Gardening</option>
@@ -44,21 +47,24 @@
                     <!-- Add more skills here -->
                 </select>
             </div>
-            <div class="input-group">
-                <label for="urgency">Urgency</label>
-                <select id="urgency" name="urgency" required>
+            <div class="col-12">
+                <label for="urgency" class="form-lable">Urgency</label>
+                <select id="urgency" name="urgency" class="form-select" required>
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
                     <option value="high">High</option>
                 </select>
             </div>
-            <div class="input-group">
-                <label for="eventDate">Event Date</label>
-                <input type="text" id="eventDate" name="eventDate" placeholder="Select date" required>
+            <div class="col-12">
+                <label for="eventDate" class="form-lable">Event Date</label>
+                <input type="text" class="form-control" id="eventDate" name="eventDate" placeholder="Select date" required>
             </div>
             <div class="buttons">
-                <button type="submit">Submit</button>
+                <button type="submit" class="btn btn-primary w-50 py-2 my-3 rounded-pill">Submit</button>
             </div>
+
+
+
         </form>
     </div>
     <script src="/public/js/scripts.js"></script>
