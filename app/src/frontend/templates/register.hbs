@@ -7,7 +7,7 @@
     <form action="#" method="POST" id="register-form"
         class="row g-0 needs-validation" novalidate>
         <div>
-            <label for="role">Role</label>
+            <label for="role"></label>
             <select id="role" name="role" class="form-select"
                 aria-label="Example">
                 <option value="volunteer">Select Role</option>
@@ -36,9 +36,9 @@
         </div>
         <div class="buttons">
             <button type="submit"
-                class="btn btn-primary w-100 py-2">Register</button>
+                class="btn btn-success w-100 py-2 mb-3 rounded-pill">Register</button>
             <p class="signup-prompt">Need to login? Click below</p>
-            <a class="button" href="/api/auth/login">Login</a>
+            <a class="btn btn-outline-secondary py-2 rounded-pill" href="/api/auth/login">Login</a>
         </div>
     </form>
 </div>
