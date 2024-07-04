@@ -1,5 +1,5 @@
 // loads env file in development
-if (process.env.LEVEL === 'development') {
+if (process.env.LEVEL === 'dev') {
   require('dotenv').config();
 }
 

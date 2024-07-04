@@ -45,9 +45,20 @@ export class SupabaseService {
     return supabaseUserClient;
   }
 
-  async validateToken(token: string): Promise<boolean> {
+  async validateToken(token: string): Promise<{data, error}> {
     const { data, error } = await this.supabaseAdminClient.auth.getUser(token);
-    return !!data && !error;
+    if(error) {
+      return {data, error}
+    }
+    
+    const { data: userData, error: userError } = await this.AuthDBService.getUserbyUserID(data.user.id)
+    if(userError) {
+      return { data, error }
+    }
+
+    let accountType = userData.account_type
+    data['user']['account_type'] = accountType
+    return { data, error }
   }
 
   get AuthDBService(): AuthDBService {

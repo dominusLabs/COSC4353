@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     loginButton.addEventListener('click', function(event) {
         event.preventDefault(); // Prevent the form from submitting normally
 
-        const emailInput = document.getElementById('username');
+        const emailInput = document.getElementById('email');
         const passwordInput = document.getElementById('password');
         const email = emailInput.value;
         const password = passwordInput.value;
@@ -23,18 +23,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Prepare the request body
         const data = {
-            username: email,
+            email: email,
             password: password
         };
 
         // Use axios to send a POST request
-        axios.post('/api/auth/login', data)
+        axios.post('/api/auth/login-account', data)
             .then(function(response) {
-                alert('Login successful: ' + response.data.message);
+                if(response.status === 201) {
+                    alert(`Login successful: ${response.data.message}`)
+                    document.cookie = `token=${response.data.data.token}`
+                    window.location.href = '/notifications'
+                } else {
+                    throw new Error(JSON.stringify(response))
+                }
                 // Handle further actions here, like redirecting to another page
             })
             .catch(function(error) {
-                alert('Login failed: ' + (error.response ? error.response.data.message : error.message));
+                let response = JSON.parse(error.message)
+                alert('Login failed: ' + response.data.message);
             });
     });
 });
