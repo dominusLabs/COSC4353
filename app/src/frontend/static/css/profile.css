@@ -10,7 +10,7 @@
 }
 
 .detail-box {
-    flex: 1 1 calc(50% - 20px); /* Adjust based on the total number of fields to ensure they fit nicely on desktop screens */
+    flex: 1 1 calc(50% - 20px); 
 }
 
 .buttons {

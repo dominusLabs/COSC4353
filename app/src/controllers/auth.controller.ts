@@ -1,25 +1,29 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Controller, Get, Post, Render, Body } from '@nestjs/common';
 import { AuthService } from '../services/auth.service';
+import { RegisterAccount } from '../libs/interfaces/auth.interface';
 
 
 @Controller("/api/auth")
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Get('/login')
-  @Render('login')
-  login() {
-    return { };
+  @Post('/register-account')
+  registerAccount(@Body() body: RegisterAccount) {
+    return this.authService.registerAccount(body);
   }
 
-  @Get('/register')
-  @Render('register')
-  register() {
-    return { };
+  // @Get('/verify-account')
+  // verifyAccount() {
+  //   return this.authService.verifyAccount();
+  // }
+
+  @Post('/login-account')
+  loginAccount(@Body() body: RegisterAccount) {
+    return this.authService.loginAccount(body);
   }
 
-  @Get("/")
-  getHello(): string {
-    return this.authService.getHello();
-  }
+  // @Get("/")
+  // getHello(): string {
+  //   return this.authService.getHello();
+  // }
 }

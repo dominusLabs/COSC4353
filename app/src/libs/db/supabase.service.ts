@@ -51,21 +51,21 @@ export class SupabaseService {
   }
 
   get AuthDBService(): AuthDBService {
-    return new AuthDBService();
+    return new AuthDBService(this.supabaseAdminClient);
   }
   get EventDBService(): EventDBService {
-    return new EventDBService();
+    return new EventDBService(this.supabaseAdminClient);
   }
   get NotificationDBService(): NotificationDBService {
-    return new NotificationDBService();
+    return new NotificationDBService(this.supabaseAdminClient);
   }
   get PricingDBService(): PricingDBService {
-    return new PricingDBService();
+    return new PricingDBService(this.supabaseAdminClient);
   }
   get ProfileDBService(): ProfileDBService {
-    return new ProfileDBService();
+    return new ProfileDBService(this.supabaseAdminClient);
   }
   get VolunteerDBService(): VolunteerDBService {
-    return new VolunteerDBService();
+    return new VolunteerDBService(this.supabaseAdminClient);
   }
 }
