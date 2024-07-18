@@ -18,6 +18,7 @@ export class SupabaseService {
   
   constructor()  {
     const supabaseUrl: string = process.env.SUPABASE_URL || 'http://localhost:8000';
+    console.log(supabaseUrl);
     const supabaseKey: string = process.env.SUPABASE_KEY || 'http://localhost:8000';
     this.supabaseUrl = supabaseUrl;
     this.supabaseKey = supabaseKey;
