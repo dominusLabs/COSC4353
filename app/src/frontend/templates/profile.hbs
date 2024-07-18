@@ -13,7 +13,7 @@
 <body>
     <div class="profile-container">
         <h1>Profile Management</h1>
-        <form action="#" method="POST" class="profile-details">
+        <form class="profile-details" id="profile-details">
             <div class="detail-box">
                 <label for="fullname">Full Name</label>
                 <input type="text" id="fullname" name="fullname" maxlength="50" required>
@@ -52,11 +52,19 @@
             </div>
             <div class="detail-box">
                 <label for="preferences">Preferences</label>
-                <textarea id="preferences" name="preferences"></textarea>
+                <textarea id="preferences" name="preferences" placeholder="One preference per line. Enter NA if no preferences"></textarea>
             </div>
             <div class="detail-box">
                 <label for="availability">Availability</label>
-                <input type="text" id="availability" name="availability" placeholder="Select dates" required>
+                <select id="availability" name="availability" multiple required>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                    <option value="Sunday">Sunday</option>
+                </select>
             </div>
             <div class="buttons">
                 <button type="submit" class="btn btn-primary w-50 py-2 my-3 rounded-pill">Save Changes</button>
@@ -65,26 +73,4 @@
     </div>
 </body>
 <script src="/public/js/profile.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        flatpickr("#availability", {
-            mode: "multiple",
-            dateFormat: "Y-m-d",
-            enableTime: false,
-            minDate: "today",
-            "locale": {
-                "firstDayOfWeek": 1 
-            }
-        });
-
-        const skillsElement = document.getElementById('skills');
-        const choices = new Choices(skillsElement, {
-            removeItemButton: true,
-            searchEnabled: true,
-            placeholderValue: "Select skills",
-            noChoicesText: "No more options",
-            itemSelectText: "Click to select"
-        });
-    });
-</script>
 </html>

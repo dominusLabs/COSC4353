@@ -10,7 +10,6 @@ import * as cookieParser from 'cookie-parser';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import path, {resolve } from 'path';
 import * as hbs from 'hbs';
-
 const cors = require('cors');
 
 async function bootstrap() {

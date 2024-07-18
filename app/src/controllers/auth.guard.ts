@@ -36,11 +36,13 @@ export class AuthGuard implements CanActivate {
       return false;
     }
 
+    request.body.user = data.user;
     if (request.url.includes("/admin") && data.user.account_type !== 'administrator') {
       this.redirect(response);
       return false;
     }
 
+    console.log("returning true")
     return true;
   }
 

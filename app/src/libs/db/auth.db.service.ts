@@ -72,7 +72,7 @@ export class AuthDBService {
 
 
     async login(body: LoginAccount): Promise<any> {
-        try { 
+        try {
             const { data, error } = await this.supabaseClient.auth.signInWithPassword({
                 email: body.email,
                 password: body.password,
