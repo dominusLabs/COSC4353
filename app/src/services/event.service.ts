@@ -9,10 +9,10 @@ export class EventService {
         private supabaseService: SupabaseService,
     ) {}
 
-    async getAllEvents(): Promise<any> {
-      const { data, error } = await this.supabaseService.EventDBService.getAllEvents();
-      if (error) throw error;
-      return data;
+  async getAllEvents(): Promise<any> {
+    const { data, error } = await this.supabaseService.EventDBService.getAllEvents();
+    if (error) throw error;
+    return data;
   }
 
   async createEvent(event): Promise<any> {
@@ -27,6 +27,45 @@ export class EventService {
         return { status: 500, message: `Failed to create event - ${error.message}` }
     }
   }
+
+async deleteEvent(eventId: string): Promise<any> {
+  try {
+    const { success, data, error } = await this.supabaseService.EventDBService.deleteEvent(eventId);
+    if (!success) {
+      return { status: 400, message: error };
+    }
+    return { status: 200, data: data, message: "Event deleted successfully" };
+  } catch (error) {
+    console.log(error.stack);
+    return { status: 500, message: `Failed to delete event - ${error.message}` };
+  }
+}
+
+async getEventSkills(eventId: string): Promise<any> {
+  try {
+    const { success, data, error } = await this.supabaseService.EventDBService.getEventSkills(eventId);
+    if (!success) {
+      return { status: 400, message: error };
+    }
+    return { status: 200, data: data, message: "Event skills retrieved successfully" };
+  } catch (error) {
+    console.log(error.stack);
+    return { status: 500, message: `Failed to retrieve event skills - ${error.message}` };
+  }
+}
+
+async getEventVolunteers(eventId: string): Promise<any> {
+  try {
+    const { success, data, error } = await this.supabaseService.EventDBService.getEventVolunteers(eventId);
+    if (!success) {
+      return { status: 400, message: error };
+    }
+    return { status: 200, data: data, message: "Event volunteers retrieved successfully" };
+  } catch (error) {
+    console.log(error.stack);
+    return { status: 500, message: `Failed to retrieve event volunteers - ${error.message}` };
+  }
+}
   
 
 //   async deleteEvent(eventId: string): Promise<any> {
