@@ -15,7 +15,8 @@ export class ProfileDBService {
         try {
             profile['user_id']= userId;
             delete profile['user']
-            const { data, error } =await this.supabaseClient.from('profile').upsert(profile)
+            const { data, error } =await this.supabaseClient.from('profile').upsert(profile, { onConflict: 'user_id' })
+            console.log(data, error)
             if(error) {
                 throw new Error(error.message)
             }
