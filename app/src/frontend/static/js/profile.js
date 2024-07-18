@@ -90,6 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
             address_one: addressOne.value,
             address_two: addressTwo.value,
             skills: selectedSkills,
+            city: cityInput.value,
             state: stateSelect.value,
             zip_code: zipcodeInput.value,
             preferences: preferencesInput.value,
@@ -186,14 +187,14 @@ document.addEventListener('DOMContentLoaded', async function () {
             // 'label',
             // false,
 
-            const skillsChoicesData = profileData.data.skills.map((skill) => {
-                return { value: skill.toLowerCase(), label: skill, selected: true };
+            const skillsChoicesData = profileData.skills.map((skill) => {
+                return { value: skill, label: skill, selected: true, disabled: true };
             });
         
             skillsChoices.setChoices(skillsChoicesData, 'value', 'label', false);
 
-            const availabilityChoicesData = profileData.data.availability.map((availability) => {
-                return { value: availability.toLowerCase(), label: availability, selected: true };
+            const availabilityChoicesData = profileData.availability.map((availability) => {
+                return { value: availability, label: availability, selected: true, disabled: true };
             });
         
             availabilityChoices.setChoices(availabilityChoicesData, 'value', 'label', false);
