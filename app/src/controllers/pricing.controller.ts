@@ -1,13 +1,17 @@
-import { Controller, Get } from '@nestjs/common';
-import { PricingService } from '../services/pricing.service';
+import { Controller, Get, Param } from '@nestjs/common';
+import { PricingService, Pricing } from '../services/pricing.service';
 
-
-@Controller("/api/pricing")
+@Controller('pricing')
 export class PricingController {
   constructor(private readonly pricingService: PricingService) {}
 
-  @Get("/")
-  getHello(): string {
-    return this.pricingService.getHello();
+  @Get()
+  getAllPricing(): Pricing[] {
+    return this.pricingService.getAllPricing();
+  }
+
+  @Get(':id')
+  getPricingById(@Param('id') id: string): Pricing {
+    return this.pricingService.getPricingById(id);
   }
 }
