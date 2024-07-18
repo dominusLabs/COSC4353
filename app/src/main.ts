@@ -3,6 +3,9 @@ if (process.env.LEVEL === 'dev') {
   require('dotenv').config();
 }
 
+process.env.SUPABASE_URL='https://gzonudkavtxkqpwerxvg.supabase.co';
+process.env.SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6b251ZGthdnR4a3Fwd2VyeHZnIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxOTg1Njg2NCwiZXhwIjoyMDM1NDMyODY0fQ.2Bbdh77tSV19d-6mVQXkbPUqnBINC0ESJR5NVAbGYVI';
+
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { CorsOptions } from 'cors';
