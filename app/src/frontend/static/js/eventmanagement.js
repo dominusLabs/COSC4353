@@ -1,86 +1,88 @@
 document.addEventListener('DOMContentLoaded', function () {
-  const eventList = document.getElementById('eventList');
+  const form = document.getElementById('eventForm');
+  form.addEventListener('submit', function (event) {
+      if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+      }
 
-  // Fetch and display all events on page load
-  fetch('/api/event/all')
-      .then(response => response.json())
-      .then(events => {
-          if (!events || events.length === 0) {
-              console.log('No events found.');
-              return;
+      const eventName = document.getElementById('eventName');
+      if (eventName.value === "" || eventName.value.length < 2 || eventName.value.length > 100) {
+          alert('Please enter an event name between 2 and 100 characters.');
+          event.preventDefault();
+      }
+
+      const eventDescription = document.getElementById('eventDescription');
+      if (eventDescription.value === "" || eventDescription.value.length < 2) {
+          alert('Please enter an event description.');
+          event.preventDefault();
+      }
+
+      const location = document.getElementById('location');
+      if (location.value === "" || location.value.length < 2 || location.value.length > 100) {
+          alert('Please enter a valid location between 2 and 100 characters.');
+          event.preventDefault();
+      }
+
+      const skillsSelect = document.getElementById('requiredSkills');
+      let selectedSkills = [];
+      let skillsElements = skillsSelect.parentElement.getElementsByClassName('choices__list choices__list--multiple');
+      for (let i = 0; i < skillsElements.length; i++) {
+          let element = skillsElements[i];
+          const selected = element.getElementsByClassName('choices__item choices__item--selectable');
+          for (let j = 0; j < selected.length; j++) {
+              let selectedElement = selected[j];
+              selectedSkills.push(selectedElement.outerText.replaceAll('Remove item', ''));
           }
-          events.forEach(event => {
-              const listItem = document.createElement('li');
-              listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
-              listItem.textContent = event.name;
-              const deleteButton = document.createElement('button');
-              deleteButton.className = 'btn btn-danger btn-sm';
-              deleteButton.textContent = 'Delete';
-              deleteButton.onclick = () => deleteEvent(event.event_id, listItem);
-              listItem.appendChild(deleteButton);
-              eventList.appendChild(listItem);
-          });
-      })
-      .catch(error => console.error('Error fetching events:', error));
+      }
 
-  // Event listener for form submission
-  const eventForm = document.getElementById('eventForm');
-  eventForm.addEventListener('submit', function (e) {
-      e.preventDefault();
+      console.log(selectedSkills);
+      if (selectedSkills.length === 0) {
+          alert('Please select at least one skill.');
+          event.preventDefault();
+      }
 
-      const eventForm = document.getElementById('eventForm');
-      const formData = new FormData(eventForm);
-      const event = {};
+      const urgency = document.getElementById('urgency');
+      if (urgency.value === "") {
+          alert('Please select an urgency level.');
+          event.preventDefault();
+      }
 
-      console.log(formData, formData.keys(), formData.entries())
-      formData.forEach((value, key) => {
-          event[key] = value;
-      });
-      console.log(event);
-      createEvent(event);
-  });
+      const eventDate = document.getElementById('eventDate');
+      if (eventDate.value === "") {
+          alert('Please select an event date.');
+          event.preventDefault();
+      }
 
-  // Function to create a new event
-  function createEvent(event) {
-      fetch('/api/event', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(event)
-      })
-          .then(response => response.json())
-          .then(newEvent => {
-              if (!newEvent) {
-                  console.error('Failed to create event.');
-                  return;
-              }
-              const listItem = document.createElement('li');
-              listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
-              listItem.textContent = newEvent.name;
-              const deleteButton = document.createElement('button');
-              deleteButton.className = 'btn btn-danger btn-sm';
-              deleteButton.textContent = 'Delete';
-              deleteButton.onclick = () => deleteEvent(newEvent.event_id, listItem);
-              listItem.appendChild(deleteButton);
-              eventList.appendChild(listItem);
-              eventForm.reset();
-          })
-          .catch(error => console.error('Error creating event:', error));
-  }
+      form.classList.add('was-validated');
 
-  // Function to delete an event
-    function deleteEvent(eventId, listItem) {
-      fetch(`/api/event/${eventId}`, { method: 'DELETE'
-        }).then(response => {
-              if (response.ok) {
-                  listItem.remove();
+      const data = {
+          event_name: eventName.value,
+          event_description: eventDescription.value,
+          location: location.value,
+          required_skills: selectedSkills,
+          urgency: urgency.value,
+          event_date: eventDate.value
+      }
+
+      console.log(JSON.stringify(data))
+
+      axios.post('/api/event', data)
+          .then(function(response) {
+              if(response.status === 200) {
+                  alert(`${response.data.message}`)
+                  // Refresh event list
+                  fetchEvents();
               } else {
-                  console.error('Error deleting event:', response.statusText);
+                  throw new Error(JSON.stringify(response))
               }
           })
-          .catch(error => console.error('Error deleting event:', error));
-    }
+          .catch(function(error) {
+              let response = JSON.parse(error.message)
+              alert(response.data.message);
+          });
+
+  }, false);
 
   // Initialize Choices for required skills
   const skillsElement = document.getElementById('requiredSkills');
@@ -89,17 +91,52 @@ document.addEventListener('DOMContentLoaded', function () {
       searchEnabled: true,
       placeholderValue: "Select skills",
       noChoicesText: "No more options",
-      allowHTML: true // Added to handle deprecation warning
+      allowHTML: true
   });
 
   // Initialize Flatpickr for event date
-  flatpickr("#date", {
+  flatpickr("#eventDate", {
       mode: "single",
       dateFormat: "Y-m-d",
       enableTime: false,
       minDate: "today",
-      "locale": {
-          "firstDayOfWeek": 1 
-      }
   });
+
+  // Fetch and display all events on page load
+  const eventList = document.getElementById('eventList');
+  function fetchEvents() {
+      fetch('/api/event/all')
+          .then(response => response.json())
+          .then(events => {
+              events.forEach(event => {
+                  const listItem = document.createElement('li');
+                  listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+                  listItem.textContent = event.event_name; // Ensure this matches the column name
+                  const deleteButton = document.createElement('button');
+                  deleteButton.className = 'btn btn-danger btn-sm';
+                  deleteButton.textContent = 'Delete';
+                  deleteButton.onclick = () => deleteEvent(event.event_id, listItem);
+                  listItem.appendChild(deleteButton);
+                  eventList.appendChild(listItem);
+              });
+          })
+          .catch(error => console.error('Error fetching events:', error));
+  }
+
+  function deleteEvent(eventId, listItem) {
+      fetch(`/api/event/${eventId}`, {
+          method: 'DELETE'
+      })
+          .then(response => {
+              if (response.ok) {
+                  listItem.remove();
+              } else {
+                  console.error('Error deleting event:', response.statusText);
+              }
+          })
+          .catch(error => console.error('Error deleting event:', error));
+  }
+
+  // Fetch events initially
+  fetchEvents();
 });
