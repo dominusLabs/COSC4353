@@ -26,15 +26,17 @@ export class EventService {
   }
 
   async createEvent(event): Promise<any> {
-    console.log(event);
-    const { data, error } = await this.supabase
-        .from('events')
-        .insert([event]);
-    if (error) throw error;
-    if (data && (data as any[]).length > 0) { 
-        return data[0];
+    try {
+        const { data, error } = await this.supabase.from('events').insert([event]);
+        console.log(error)
+        if(error) {
+            throw new Error(error.message)
+        }
+        return { success: true, data: data, error: null}
+    } catch(error) {
+        console.log(error.stack)
+        return { status: 500, message: `Failed to create event - ${error.message}` }
     }
-    throw new Error('Failed to create event');
   }
 
   async deleteEvent(eventId: string): Promise<any> {

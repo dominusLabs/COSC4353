@@ -20,7 +20,7 @@ export class EventController {
 //    return this.eventService.getEventVolunteers(eventId);
 //  }
 
-  @Post('/')
+  @Post('/create')
   async createEvent(@Body() eventData: any) {
     return this.eventService.createEvent(eventData);
   }

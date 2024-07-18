@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Function to create a new event
   function createEvent(event) {
-      fetch('/api/event', {
+      fetch('/api/event/create', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'

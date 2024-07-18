@@ -30,6 +30,7 @@ export class AuthGuard implements CanActivate {
       return false;
     }
 
+    
     const {data, error} = await this.supabaseService.validateToken(token);
     if (error || !data) {
       this.redirect(response);
