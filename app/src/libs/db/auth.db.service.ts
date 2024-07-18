@@ -16,7 +16,6 @@ export class AuthDBService {
 
     async getUserbyUserID(userID: string): Promise<any> {
         try {
-            console.log(userID)
             const { data, error } =await this.supabaseClient.from('users').select("*").eq('user_id', userID).single()
             console.log(data, error)
             if(error) {

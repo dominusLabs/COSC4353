@@ -53,7 +53,6 @@ export class SupabaseService {
       return {data, error}
     }
     
-    console.log(data, error)
     const { data: userData, error: userError } = await this.AuthDBService.getUserbyUserID(data.user.id)
     if(userError) {
       return { data, error }

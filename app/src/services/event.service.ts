@@ -1,68 +1,58 @@
 import { Injectable } from '@nestjs/common';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { SupabaseService } from '../libs/db/supabase.service';
+
 
 @Injectable()
 export class EventService {
-    private supabase: SupabaseClient;
-
-    setSupabaseClient(supabaseUrl: string, supabaseKey: string): void {
-        console.log('Setting Supabase Client:', supabaseUrl, supabaseKey);
-        if (!supabaseUrl || !supabaseKey) {
-            throw new Error('Supabase URL and Key are required');
-        }
-        this.supabase = createClient(supabaseUrl, supabaseKey);
-    }
-
-    getHello(): string {
-        return 'Hello World!';
-    }
+    constructor(
+        private supabaseService: SupabaseService,
+    ) {}
 
     async getAllEvents(): Promise<any> {
-      const { data, error } = await this.supabase
-          .from('events')
-          .select('*');
+      const { data, error } = await this.supabaseService.EventDBService.getAllEvents();
       if (error) throw error;
       return data;
   }
 
   async createEvent(event): Promise<any> {
     try {
-        const { data, error } = await this.supabase.from('events').insert([event]);
-        console.log(error)
-        if(error) {
-            throw new Error(error.message)
+        const {sucess, data, error} = await this.supabaseService.EventDBService.createEvent(event);
+        if (!sucess != true) {
+            return { status: 400, message: error }
         }
-        return { success: true, data: data, error: null}
+        return { status: 200, data: data, message: "Event created successfully" }
     } catch(error) {
         console.log(error.stack)
         return { status: 500, message: `Failed to create event - ${error.message}` }
     }
   }
+  
 
-  async deleteEvent(eventId: string): Promise<any> {
-      const { data, error } = await this.supabase
-          .from('events')
-          .delete()
-          .eq('event_id', eventId);
-      if (error) throw error;
-      return data;
-  }
+//   async deleteEvent(eventId: string): Promise<any> {
+//       const { data, error } = await this.supabaseClient
+//           .from('events')
+//           .delete()
+//           .eq('event_id', eventId);
+//       if (error) throw error;
+//       return data;
+//   }
 
-  async getEventSkills(eventId: string): Promise<any> {
-      const { data, error } = await this.supabase
-          .from('events')
-          .select('skills')
-          .eq('event_id', eventId);
-      if (error) throw error;
-      return data;
-  }
+//   async getEventSkills(eventId: string): Promise<any> {
+//       const { data, error } = await this.supabaseClient
+//           .from('events')
+//           .select('skills')
+//           .eq('event_id', eventId);
+//       if (error) throw error;
+//       return data;
+//   }
 
-  async getEventVolunteers(eventId: string): Promise<any> {
-      const { data, error } = await this.supabase
-          .from('EventVolunteers')
-          .select('volunteer_id, volunteer_name')
-          .eq('event_id', eventId);
-      if (error) throw error;
-      return data;
-  }
+//   async getEventVolunteers(eventId: string): Promise<any> {
+//       const { data, error } = await this.supabaseClient
+//           .from('EventVolunteers')
+//           .select('volunteer_id, volunteer_name')
+//           .eq('event_id', eventId);
+//       if (error) throw error;
+//       return data;
+//   }
 }

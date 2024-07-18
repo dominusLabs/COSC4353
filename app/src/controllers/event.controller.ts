@@ -5,15 +5,11 @@ import { EventService } from '../services/event.service';
 export class EventController {
   constructor(private readonly eventService: EventService) {}
 
-  @Get('/')
-  getHello(): string {
-    return this.eventService.getHello();
-  }
 
-  @Get('/:eventId/skills')
-  async getEventSkills(@Param('eventId') eventId: string) {
-    return this.eventService.getEventSkills(eventId);
-  }
+  // @Get('/:eventId/skills')
+  // async getEventSkills(@Param('eventId') eventId: string) {
+  //   return this.eventService.getEventSkills(eventId);
+  // }
 
 //  @Get('/:eventId/volunteers')
 //  async getEventVolunteers(@Param('eventId') eventId: string) {
@@ -25,8 +21,8 @@ export class EventController {
     return this.eventService.createEvent(eventData);
   }
 
-  @Delete('/:eventId')
-  async deleteEvent(@Param('eventId') eventId: string) {
-    return this.eventService.deleteEvent(eventId);
-  }
+  // @Delete('/:eventId')
+  // async deleteEvent(@Param('eventId') eventId: string) {
+  //   return this.eventService.deleteEvent(eventId);
+  // }
 }
