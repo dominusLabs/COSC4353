@@ -42,6 +42,11 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
+        const cityInput = document.getElementById('city');
+        if (cityInput.value === "" || cityInput.value.length < 2 || cityInput.value.length > 50) {
+            alert('Please enter a valid city between 2 and 50 characters.');
+            event.preventDefault();
+        }
 
         const stateSelect = document.getElementById('state');
         if (stateSelect.value === "" || stateSelect.value.length !== 2) {
@@ -135,34 +140,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         itemSelectText: "Click to select"
     });
 
-
-    // send request to get profile from /api/profile/get and populate the form
-    // {
-        //     "status": 200,
-        //     "message": "Profile retrieved successfully",
-        //     "data": {
-        //         "id": 1,
-        //         "created_at": "2024-07-18T01:36:28.25652+00:00",
-        //         "user_id": "62629aa1-1c03-4ca3-b668-ded92cd38830",
-        //         "fullname": "Kunwar S",
-        //         "address_one": "123 Main Street",
-        //         "address_two": "Apartment 404",
-        //         "city": null,
-        //         "state": "CA",
-        //         "zip_code": "77777",
-        //         "skills": [
-        //             "Design",
-        //             "Management"
-        //         ],
-        //         "preferences": "NA",
-        //         "availability": [
-        //             "Tuesday",
-        //             "Thursday",
-        //             "Sunday"
-        //         ]
-        //     }
-        // }
-
     try {   
         axios.get('/api/profile/get').then((response) => {
             const profileResponse = response.data;
@@ -171,21 +148,14 @@ document.addEventListener('DOMContentLoaded', async function () {
             }
 
             const profileData = profileResponse.data;
-            // populate the form
+
             document.getElementById('fullname').value = profileData.fullname;
             document.getElementById('address1').value = profileData.address_one;
             document.getElementById('address2').value = profileData.address_two;
             document.getElementById('zipcode').value = profileData.zip_code;
+            document.getElementById('city').value = profileData.city;
+            document.getElementById('state').value = profileData.state;
             document.getElementById('preferences').value = profileData.preferences;
-            
-            //[
-            //     { value: 'One', label: 'Label One', disabled: true },
-            //     { value: 'Two', label: 'Label Two', selected: true },
-            //     { value: 'Three', label: 'Label Three' },
-            // ],
-            // 'value',
-            // 'label',
-            // false,
 
             const skillsChoicesData = profileData.skills.map((skill) => {
                 return { value: skill, label: skill, selected: true, disabled: true };
