@@ -17,8 +17,10 @@ export class SupabaseService {
   public supabaseAdminClient: SupabaseClient;
   
   constructor()  {
-    const supabaseUrl: string = process.env.SUPABASE_URL || 'http://localhost:8000';
-    const supabaseKey: string = process.env.SUPABASE_KEY || 'http://localhost:8000';
+    const supabaseUrl: string = process.env.SUPABASE_URL;
+    console.log(supabaseUrl);
+    const supabaseKey: string = process.env.SUPABASE_KEY;
+    console.log(supabaseKey);
     this.supabaseUrl = supabaseUrl;
     this.supabaseKey = supabaseKey;
     this.supabaseAdminClient = createClient(this.supabaseUrl, this.supabaseKey);

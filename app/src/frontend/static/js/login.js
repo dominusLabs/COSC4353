@@ -30,10 +30,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Use axios to send a POST request
         axios.post('/api/auth/login-account', data)
             .then(function(response) {
-                if(response.status === 201) {
-                    alert(`Login successful: ${response.data.message}`)
+                if(response.status === 200) {
+                    alert(`${response.data.message}`)
                     document.cookie = `token=${response.data.data.token}`
-                    window.location.href = '/notifications'
+                    window.location.href = '/profile'
                 } else {
                     throw new Error(JSON.stringify(response))
                 }
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(function(error) {
                 let response = JSON.parse(error.message)
-                alert('Login failed: ' + response.data.message);
+                alert(response.data.message);
             });
     });
 });

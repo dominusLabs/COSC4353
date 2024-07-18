@@ -25,10 +25,10 @@ export class PublicController {
         return {};
     }
 
-    @Get('eventmanagment')
+    @Get('eventmanagement')
     @UseGuards(AuthGuard)
-    @Render('eventmanagment')
-    getEventManagment() {
+    @Render('eventmanagement')
+    getEventManagement() {
         return {};
     }
 

@@ -35,15 +35,15 @@ document.addEventListener('DOMContentLoaded', function() {
             // Use axios to send a POST request
             axios.post('/api/auth/register-account', data)
                 .then(function(response) {
-                    if(response.status === 201) {
-                        alert('Registration successful: ' + response.data.message, 5000);
+                    if(response.status === 200) {
+                        alert(response.data.message, 5000);
                     } else {
                         throw new Error(JSON.stringify(response));
                     }
                 })
                 .catch(function(error) {
                     let response = JSON.parse(error.message)
-                    alert('Registration failed: ' + response.data.message, 5000);
+                    alert(response.data.message, 5000);
                 });
         } else {
             alert('Please select a valid role.', 3000);

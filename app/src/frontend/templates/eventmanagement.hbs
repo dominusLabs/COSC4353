@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Management</title>
+    <link rel="stylesheet" href="/public/css/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Event Management Form</h1>
+        <form id="eventForm">
+            <div class="col-12">
+                <label for="name" class="form-label">Event Name</label>
+                <input type="text" class="form-control" id="name" name="name" maxlength="100" required>
+            </div>
+            <div class="col-12">
+                <label for="description" class="form-label">Event Description</label>
+                <textarea id="description" class="form-control" name="description" rows="1" required></textarea>
+            </div>
+            <div class="col-12">
+                <label for="location" class="form-label">Location</label>
+                <input id="location" class="form-control" name="location" required>
+            </div>
+             <div class="col-12">
+                <label for="skills" class="form-label">Required Skills</label>
+                <select id="requiredSkills" name="skills" class="form-select" multiple required>
+                    <option value="woodworking">Woodworking</option>
+                    <option value="cooking">Cooking</option>
+                    <option value="gardening">Gardening</option>
+                    <option value="handyman_services">Handyman Services</option>
+                    <option value="childcare">Childcare</option>
+                </select>
+            </div>
+            <div class="col-12">
+                <label for="urgency" class="form-label">Urgency</label>
+                <select id="urgency" name="urgency" class="form-select" required>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+            <div class="col-12">
+                <label for="date" class="form-label">Event Date</label>
+                <input type="text" class="form-control" id="date" name="date" placeholder="Select date" required>
+            </div>
+            <div class="buttons">
+                <button type="submit" class="btn btn-primary w-50 py-2 my-3 rounded-pill">Submit</button>
+            </div>
+        </form>
+    </div>
+    <div class="form-container">
+        <h2>Current Events</h2>
+        <ul id="events" class="list-group">
+            <!-- Current events will be populated here -->
+        </ul>
+    </div>
+    <script src="/public/js/eventmanagement.js"></script>
+</body>
+</html>

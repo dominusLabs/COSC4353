@@ -37,12 +37,12 @@ export class AuthService {
   }
 
   async loginAccount(body: LoginAccount) {
-    try { 
+    try {
       const {success, data, error} = await this.supabaseService.AuthDBService.login(body);
       if (success != true) {
         return { status: 400, message: error };
       }
-      return { status: 200, message: 'Account created successfully. Please check your email for verification', data: data };
+      return { status: 200, message: 'Logged in!', data: data };
     } catch(error) {
       console.log(error.stack)
       return { status: 500, message: 'Internal server error - please try again later' }

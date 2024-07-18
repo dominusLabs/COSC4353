@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Render, Body, Param, Redirect, Query, Res, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Render, Body, Param, Redirect, Query, Res, HttpStatus, UseGuards } from '@nestjs/common';
 import { AuthService } from '../services/auth.service';
 import { RegisterAccount, VerifyAccount } from '../libs/interfaces/auth.interface';
 import { Response } from 'express'; // Make sure it's imported from 'express'
@@ -8,14 +8,15 @@ import { Response } from 'express'; // Make sure it's imported from 'express'
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+
   @Post('/register-account')
-  async registerAccount(@Body() body: RegisterAccount) {
-    return this.authService.registerAccount(body);
+  async registerAccount(@Body() body: RegisterAccount, @Res() response: Response) {
+    let responseBody = await this.authService.registerAccount(body);
+    response.status(responseBody.status).json(responseBody);
   }
 
   @Get('/verify-account')
   async verifyAccount(@Query() query: any, @Res() res: Response): Promise<void> {
-    console.log(query)
     let email = query.email
     if (!email) {
       return res.redirect('/login');
@@ -27,8 +28,9 @@ export class AuthController {
   }
 
   @Post('/login-account')
-  async loginAccount(@Body() body: RegisterAccount) {
-    return this.authService.loginAccount(body);
+  async loginAccount(@Body() body: RegisterAccount, @Res() response: Response) {
+    let responseBody = await this.authService.loginAccount(body);
+    response.status(responseBody.status).json(responseBody);
   }
 
   // @Get("/")
