@@ -10,7 +10,6 @@ export class ProfileService {
 
   async updateProfile(userId: string, profile: UpdateProfile) {
     try { 
-      console.log(profile)
       const {success, data, error} = await this.supabaseService.ProfileDBService.updateProfile(userId, profile);
       if (success != true) {
         return { status: 400, message: error };
@@ -18,7 +17,6 @@ export class ProfileService {
 
       return { status: 200, message: 'Profile updated successfully' };
     } catch(error){
-      console.log(error.stack)
       return { status: 500, message: 'Internal server error - please try again later' }
     }
   }
@@ -31,7 +29,6 @@ export class ProfileService {
       }
       return { status: 200, message: 'Profile retrieved successfully', data: data };
     } catch(error) {
-      console.log(error.stack)
       return { status: 500, message: 'Internal server error - please try again later' }
     }
   }
