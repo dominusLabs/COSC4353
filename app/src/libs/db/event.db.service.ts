@@ -31,7 +31,7 @@ export class EventDBService {
     async createEvent(event: any): Promise<any> {
         try { 
             const { data, error } = await this.supabaseClient.from('events').insert([event]);
-            console.log(error)
+            console.log("-----",error)
             if(error) {
                 throw new Error(error.message)
             }

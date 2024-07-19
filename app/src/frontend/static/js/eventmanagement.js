@@ -6,13 +6,13 @@ document.addEventListener('DOMContentLoaded', function () {
           event.stopPropagation();
       }
 
-      const eventName = document.getElementById('eventName');
+      const eventName = document.getElementById('name');
       if (eventName.value === "" || eventName.value.length < 2 || eventName.value.length > 100) {
           alert('Please enter an event name between 2 and 100 characters.');
           event.preventDefault();
       }
 
-      const eventDescription = document.getElementById('eventDescription');
+      const eventDescription = document.getElementById('description');
       if (eventDescription.value === "" || eventDescription.value.length < 2) {
           alert('Please enter an event description.');
           event.preventDefault();
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
           event.preventDefault();
       }
 
-      const eventDate = document.getElementById('eventDate');
+      const eventDate = document.getElementById('date');
       if (eventDate.value === "") {
           alert('Please select an event date.');
           event.preventDefault();
