@@ -18,7 +18,6 @@ export class AuthService {
       }
       return { status: 200, message: 'Account created successfully. Please check your email for verification' };
     } catch(error){
-      console.log(error.stack)
       return { status: 500, message: 'Internal server error - please try again later' }
     }
   }
@@ -31,7 +30,6 @@ export class AuthService {
       }
       return { status: 200, message: 'Account verified successfully' };
     } catch(error) {
-      console.log(error.stack)
       return { status: 500, message: 'Internal server error - please try again later' }
     }
   }
@@ -44,7 +42,6 @@ export class AuthService {
       }
       return { status: 200, message: 'Logged in!', data: data };
     } catch(error) {
-      console.log(error.stack)
       return { status: 500, message: 'Internal server error - please try again later' }
     }
   }
