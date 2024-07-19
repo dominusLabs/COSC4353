@@ -18,9 +18,7 @@ export class SupabaseService {
   
   constructor()  {
     const supabaseUrl: string = process.env.SUPABASE_URL;
-    console.log(supabaseUrl);
     const supabaseKey: string = process.env.SUPABASE_KEY;
-    console.log(supabaseKey);
     this.supabaseUrl = supabaseUrl;
     this.supabaseKey = supabaseKey;
     this.supabaseAdminClient = createClient(this.supabaseUrl, this.supabaseKey);

@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   const form = document.getElementById('eventForm');
   form.addEventListener('submit', function (event) {
+    try{
       if (!form.checkValidity()) {
           event.preventDefault();
           event.stopPropagation();
@@ -80,6 +81,9 @@ document.addEventListener('DOMContentLoaded', function () {
               let response = JSON.parse(error.message)
               alert(response.data.message);
           });
+    } catch (error) {
+      console.log(error)
+    }
 
   }, false);
 
