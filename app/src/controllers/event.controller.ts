@@ -1,28 +1,22 @@
-import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Delete, Param } from '@nestjs/common';
 import { EventService } from '../services/event.service';
 
 @Controller('/api/event')
 export class EventController {
   constructor(private readonly eventService: EventService) {}
 
-
-  // @Get('/:eventId/skills')
-  // async getEventSkills(@Param('eventId') eventId: string) {
-  //   return this.eventService.getEventSkills(eventId);
-  // }
-
-//  @Get('/:eventId/volunteers')
-//  async getEventVolunteers(@Param('eventId') eventId: string) {
-//    return this.eventService.getEventVolunteers(eventId);
-//  }
-
-  @Post('/create')
-  async createEvent(@Body() eventData: any) {
-    return this.eventService.createEvent(eventData);
+  @Get('/all')
+  async getAllEvents() {
+    return this.eventService.getAllEvents();
   }
 
-  // @Delete('/:eventId')
-  // async deleteEvent(@Param('eventId') eventId: string) {
-  //   return this.eventService.deleteEvent(eventId);
-  // }
+  @Post('/')
+  async createEvent(@Body() event) {
+    return this.eventService.createEvent(event);
+  }
+
+  @Delete('/:eventId')
+  async deleteEvent(@Param('eventId') eventId: string) {
+    return this.eventService.deleteEvent(eventId);
+  }
 }

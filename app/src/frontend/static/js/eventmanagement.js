@@ -6,13 +6,13 @@ document.addEventListener('DOMContentLoaded', function () {
           event.stopPropagation();
       }
 
-      const eventName = document.getElementById('name');
+      const eventName = document.getElementById('eventName');
       if (eventName.value === "" || eventName.value.length < 2 || eventName.value.length > 100) {
           alert('Please enter an event name between 2 and 100 characters.');
           event.preventDefault();
       }
 
-      const eventDescription = document.getElementById('description');
+      const eventDescription = document.getElementById('eventDescription');
       if (eventDescription.value === "" || eventDescription.value.length < 2) {
           alert('Please enter an event description.');
           event.preventDefault();
@@ -48,26 +48,25 @@ document.addEventListener('DOMContentLoaded', function () {
           event.preventDefault();
       }
 
-      const eventDate = document.getElementById('date');
+      const eventDate = document.getElementById('eventDate');
       if (eventDate.value === "") {
           alert('Please select an event date.');
           event.preventDefault();
       }
 
-
       const data = {
-        event_id: window.crypto.randomUUID(),
-        name: eventName.value,
-        description: eventDescription.value,
-        location: location.value,
-        required_skills: selectedSkills,
-        urgency: urgency.value,
-        date: eventDate.value
+          event_id: window.crypto.randomUUID(),
+          name: eventName.value,
+          description: eventDescription.value,
+          location: location.value,
+          required_skills: selectedSkills,
+          urgency: urgency.value,
+          date: eventDate.value
       }
 
       console.log(data)
 
-      axios.post('/api/event/create', data)
+      axios.post('/api/event', data)
           .then(function(response) {
               if(response.status === 200) {
                   alert(`${response.data.message}`)
@@ -108,10 +107,11 @@ document.addEventListener('DOMContentLoaded', function () {
       fetch('/api/event/all')
           .then(response => response.json())
           .then(events => {
+              eventList.innerHTML = ''; // Clear the list before adding new events
               events.forEach(event => {
                   const listItem = document.createElement('li');
                   listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
-                  listItem.textContent = event.event_name; // Ensure this matches the column name
+                  listItem.textContent = event.name; // Ensure this matches the column name
                   const deleteButton = document.createElement('button');
                   deleteButton.className = 'btn btn-danger btn-sm';
                   deleteButton.textContent = 'Delete';
