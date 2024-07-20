@@ -93,21 +93,7 @@ export class EventDBService {
         }
     }
 
-    async getEventByName(eventName: string): Promise<any> {
-        try {
-            const { data, error } = await this.supabaseClient
-            .from('events')
-            .select('name')
-            .eq('name', eventName);
-            if (error) {
-                throw error;
-            }
-            return { success: true, data: data, error: null };
-        } catch (error) {
-            console.error(error);
-            return { success: false, error: `Failed to get event by name: ${error}`, data: null };
-        }
-    }
+    
 
     async getEventByID(eventId: string): Promise<any> {
         try {
@@ -175,4 +161,22 @@ export class EventDBService {
             return { success: false, error: `Failed to delete match: ${error}`, data: null };
         }
     }
+
+
+    async getEventByName(eventName: string): Promise<any> {
+        try {
+            const { data, error } = await this.supabaseClient
+            .from('events')
+            .select('name')
+            .eq('name', eventName);
+            if (error) {
+                throw error;
+            }
+            return { success: true, data: data, error: null };
+        } catch (error) {
+            console.error(error);
+            return { success: false, error: `Failed to get event by name: ${error}`, data: null };
+        }
+    }
+
 }

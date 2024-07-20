@@ -94,4 +94,12 @@ export class VolunteerController {
     return this.eventService.getEventSkills(eventId);
   }
 
+  @Get('/:eventId/volunteers')
+  async getEventVolunteers(@Param('eventId') eventId: string) {
+    return this.eventService.getEventVolunteers(eventId);
+  }
+
+  async getVolunteerHistory(@Param('volunteerId') volunteerId: string) {
+    return this.volunteerService.getVolunteerHistory(volunteerId);
+  }
 }
