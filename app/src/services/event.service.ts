@@ -66,6 +66,19 @@ async getEventVolunteers(eventId: string): Promise<any> {
     return { status: 500, message: `Failed to retrieve event volunteers - ${error.message}` };
   }
 }
+
+async getEventByName(eventName: string): Promise<any> {
+  try {
+      const { data, error } = await this.supabaseService.EventDBService.getEventByName(eventName);
+      if (!data || error) {
+          return { status: 404, message: 'Event not found' };
+      }
+      return { status: 200, data: data };
+  } catch (error) {
+      console.log(error.stack);
+      return { status: 500, message: `Failed to retrieve event by name - ${error.message}` };
+  }
+}
   
 
 //   async deleteEvent(eventId: string): Promise<any> {

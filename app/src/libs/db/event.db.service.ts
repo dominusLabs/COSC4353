@@ -89,4 +89,21 @@ export class EventDBService {
             return { success: false, error: `Failed to get event volunteers: ${error}`, data: null };
         }
     }
+
+    async getEventByName(eventName: string): Promise<any> {
+        try {
+            const { data, error } = await this.supabaseClient
+                .from('events')
+                .select('*')
+                .eq('name', eventName)
+                .single();
+            if (error) {
+                throw error;
+            }
+            return { success: true, data: data, error: null };
+        } catch (error) {
+            console.error(error);
+            return { success: false, error: `Failed to get event by name: ${error}`, data: null };
+        }
+    }
 }

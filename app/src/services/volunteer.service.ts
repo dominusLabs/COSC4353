@@ -41,8 +41,8 @@ export class VolunteerService {
 
     async getVolunteerSkills(volunteerId: string): Promise<any> {
         try {
-            const { data, error } = await this.supabaseService.VolunteerDBService.getVolunteerSkills(volunteerId);
-            if (error) {
+            const { success, data, error } = await this.supabaseService.VolunteerDBService.getVolunteerSkills(volunteerId);
+            if (!success) {
                 return { status: 400, message: error };
             }
             return { status: 200, data: data, message: "Volunteer skills retrieved successfully" };
@@ -54,8 +54,8 @@ export class VolunteerService {
 
     async getVolunteerAvailability(volunteerId: string): Promise<any> {
         try {
-            const { data, error } = await this.supabaseService.VolunteerDBService.getVolunteerAvailability(volunteerId);
-            if (error) {
+            const { success, data, error } = await this.supabaseService.VolunteerDBService.getVolunteerAvailability(volunteerId);
+            if (!success) {
                 return { status: 400, message: error };
             }
             return { status: 200, data: data, message: "Volunteer availability retrieved successfully" };
@@ -111,4 +111,26 @@ export class VolunteerService {
             return { status: 500, message: `Failed to delete volunteer match - ${error.message}` };
         }
     }
+    
+    async getVolunteersByNames(volunteerNames: string[]): Promise<any> {
+      try {
+          const { data, error } = await this.supabaseService.VolunteerDBService.getVolunteersByNames(volunteerNames);
+          if (error) throw error;
+          return data;
+      } catch (error) {
+          console.log(error.stack);
+          return { status: 500, message: `Failed to retrieve volunteers by names - ${error.message}` };
+      }
+  }
+
+  async getVolunteerHistory(volunteerId: string): Promise<any> {
+      try {
+          const { data, error } = await this.supabaseService.VolunteerDBService.getVolunteerHistory(volunteerId);
+          if (error) throw error;
+          return data;
+      } catch (error) {
+          console.log(error.stack);
+          return { status: 500, message: `Failed to retrieve volunteer history - ${error.message}` };
+      }
+  }
 }
