@@ -1,25 +1,34 @@
 import { Injectable } from '@nestjs/common';
-
-export interface Pricing {
-  id: string;
-  name: string;
-  price: number;
-}
+import { Pricing, CreatePricing, UpdatePricing } from '../libs/interfaces/pricing.interface';
+import { SupabaseService } from '../libs/db/supabase.service';
 
 @Injectable()
 export class PricingService {
-  private prices: Pricing[] = [
-    { id: '1', name: 'Free', price: 0 },
-    { id: '2', name: 'Basic', price: 40 },
-    { id: '3', name: 'Professional', price: 80 },
-    { id: '4', name: 'Enterprise', price: 100 },
-  ];
+  constructor(
+    private supabaseService: SupabaseService,
+  ) {}
 
-  getAllPricing(): Pricing[] {
-    return this.prices;
+  async createPricing(pricing: CreatePricing): Promise<any> {
+    try {
+      const { success, data, error } = await this.supabaseService.PricingDBService.createPricing(pricing);
+      if (!success) {
+        return { status: 400, message: error };
+      }
+      return { status: 200, data: data, message: "Pricing created successfully" };
+    } catch (error) {
+      return { status: 500, message: `Failed to create pricing - ${error.message}` };
+    }
   }
 
-  getPricingById(id: string): Pricing {
-    return this.prices.find(price => price.id === id);
+  async updatePricing(id: string, pricing: UpdatePricing): Promise<any> {
+    try {
+      const { success, data, error } = await this.supabaseService.PricingDBService.updatePricing(id, pricing);
+      if (!success) {
+        return { status: 400, message: error };
+      }
+      return { status: 200, data: data, message: "Pricing updated successfully" };
+    } catch (error) {
+      return { status: 500, message: `Failed to update pricing - ${error.message}` };
+    }
   }
 }

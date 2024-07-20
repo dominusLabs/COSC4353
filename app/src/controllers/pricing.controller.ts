@@ -1,17 +1,18 @@
-import { Controller, Get, Param } from '@nestjs/common';
-import { PricingService, Pricing } from '../services/pricing.service';
+import { Controller, Post, Body, Put, Param } from '@nestjs/common';
+import { Pricing, CreatePricing, UpdatePricing } from '../libs/interfaces/pricing.interface';
+import { PricingService } from '../services/pricing.service';
 
 @Controller('pricing')
 export class PricingController {
   constructor(private readonly pricingService: PricingService) {}
 
-  @Get()
-  getAllPricing(): Pricing[] {
-    return this.pricingService.getAllPricing();
+  @Post()
+  async createPricing(@Body() pricing: CreatePricing): Promise<any> {
+    return this.pricingService.createPricing(pricing);
   }
 
-  @Get(':id')
-  getPricingById(@Param('id') id: string): Pricing {
-    return this.pricingService.getPricingById(id);
+  @Put(':id')
+  async updatePricing(@Param('id') id: string, @Body() pricing: UpdatePricing): Promise<any> {
+    return this.pricingService.updatePricing(id, pricing);
   }
 }
