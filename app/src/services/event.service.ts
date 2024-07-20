@@ -66,7 +66,60 @@ async getEventVolunteers(eventId: string): Promise<any> {
     return { status: 500, message: `Failed to retrieve event volunteers - ${error.message}` };
   }
 }
-  
+
+async getEventByName(eventName: string): Promise<any> {
+  try {
+    const { success, data, error } = await this.supabaseService.EventDBService.getEventByName(eventName);
+    if (!success) {
+      return { status: 400, message: error };
+    }
+    return { status: 200, data: data, message: "Event retrieved successfully" };
+  } catch (error) {
+    console.log(error.stack);
+    return { status: 500, message: `Failed to retrieve event - ${error.message}` };
+  }
+}
+
+async getEventById(eventId: string): Promise<any> {
+  try {
+    const { success, data, error } = await this.supabaseService.EventDBService.getEventByID(eventId);
+    if (!success) {
+      return { status: 400, message: error };
+    }
+    return { status: 200, data: data, message: "Event retrieved successfully" };
+  } catch(error) {
+    console.log(error.stack);
+    return { status: 500, message: `Failed to retrieve event - ${error.message}` };
+  }
+}
+
+async saveMatch(eventId: string, matchedVolunteers: any[]): Promise<any> {
+  try {
+    const { success, data, error } = await this.supabaseService.EventDBService.saveMatch(eventId, matchedVolunteers);
+    if (!success) {
+      return { status: 400, message: error };
+    }
+    return { status: 200, data: data, message: "Match saved successfully" };
+  } catch (error) {
+    console.log(error.stack);
+    return { status: 500, message: `Failed to save match - ${error.message}` };
+  }
+}
+
+async deleteMatch(eventId: string, volunteerId: string): Promise<any> {
+  try {
+    const { success, data, error } = await this.supabaseService.EventDBService.deleteMatch(eventId, volunteerId);
+    if (!success) {
+    return { status: 400, message: error };
+    }
+    return { status: 200, data: data, message: "Match deleted successfully" };
+  } catch (error) {
+    console.log(error.stack);
+    return { status: 500, message: `Failed to delete match - ${error.message}` };
+  }
+}
+
+
 
 //   async deleteEvent(eventId: string): Promise<any> {
 //       const { data, error } = await this.supabaseClient

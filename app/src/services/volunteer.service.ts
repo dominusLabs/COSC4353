@@ -13,6 +13,17 @@ export class VolunteerService {
         return data;
     }
 
+    async getAllVolunteerProfileFormatted(): Promise<any> {
+        try {
+            const { data, error } = await this.supabaseService.VolunteerDBService.getAllVolunteerProfiles();
+            if (error) throw error;
+            return { status: 200, data: data, message: "Volunteer profiles retrieved successfully" };
+        } catch (error) {
+            console.log(error.stack);
+            return { status: 500, message: `Failed to retrieve volunteer profiles - ${error.message}` };
+        }
+    }
+
     async createVolunteerProfile(profile: any): Promise<any> {
         try {
             const { success, data, error } = await this.supabaseService.VolunteerDBService.createVolunteerProfile(profile);
@@ -84,7 +95,7 @@ export class VolunteerService {
             }
 
             // Save the match to the database (if needed)
-            await this.supabaseService.VolunteerDBService.saveMatch(event.id, matchedVolunteers);
+            await this.supabaseService.EventDBService.saveMatch(event.id, matchedVolunteers);
 
             return { status: 200, message: 'Volunteers matched successfully', data: matchedVolunteers };
         } catch (error) {
@@ -93,15 +104,9 @@ export class VolunteerService {
         }
     }
 
-    async getAllMatches(): Promise<any> {
-        const { data, error } = await this.supabaseService.VolunteerDBService.getAllMatches();
-        if (error) throw error;
-        return data;
-    }
-
-    async deleteMatch(matchId: string): Promise<any> {
+    async deleteMatch(eventID: string, volunteerID: string): Promise<any> {
         try {
-            const { success, data, error } = await this.supabaseService.VolunteerDBService.deleteMatch(matchId);
+            const { success, data, error } = await this.supabaseService.EventDBService.deleteMatch(eventID, volunteerID);
             if (!success) {
                 return { status: 400, message: error };
             }
@@ -109,6 +114,19 @@ export class VolunteerService {
         } catch (error) {
             console.log(error.stack);
             return { status: 500, message: `Failed to delete volunteer match - ${error.message}` };
+        }
+    }
+
+    async getVolunteerByNames(volunteerNames: string[]): Promise<any> {
+        try { 
+            const { data, error } = await this.supabaseService.VolunteerDBService.getVolunteerByNames(volunteerNames);
+            if (error) {
+                return { status: 400, message: error };
+            }
+            return { status: 200, data: data, message: "Volunteer profiles retrieved successfully" };
+        } catch (error) {
+            console.log(error.stack);
+            return { status: 500, message: `Failed to retrieve volunteer profiles - ${error.message}` };
         }
     }
 }

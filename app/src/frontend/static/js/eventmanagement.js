@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
               alert(response.data.message);
           });
     } catch (error) {
-      console.log(error)
+      alert(error);
     }
 
   }, false);

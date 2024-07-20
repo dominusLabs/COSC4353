@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/public/css/styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
     <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+    <script src="/public/js/volunteer_matching.js"></script>
 </head>
 <body>
     <div class="form-container">
@@ -15,7 +16,7 @@
         <form id="volunteerForm">
             <div class="col-12">
                 <label for="event" class="form-label">Select Event</label>
-                <select id="event" class="form-select" name="event" required>
+                <select id="event" class="form-select" name="event" onchange="onEventChange(this)" required>
                     <option value="">Choose Event...</option>
                     <!-- Options will be dynamically populated -->
                 </select>
@@ -27,7 +28,7 @@
                     <!-- Options will be dynamically populated -->
                 </select>
             </div>
-            <div class="col-12">
+            <div class="col-12" id="volunteer-matching-container" class="d-none">
                 <label for="volunteerName" class="form-label">Matching Volunteers</label>
                 <select id="volunteerName" class="form-select" name="volunteerName" multiple required>
                     <option value="">Choose Volunteer...</option>
@@ -40,6 +41,5 @@
         </form>
 
     </div>
-    <script src="/public/js/volunteer_matching.js"></script>
 </body>
 </html>
