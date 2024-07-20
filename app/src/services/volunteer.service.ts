@@ -7,6 +7,18 @@ export class VolunteerService {
         private readonly supabaseService: SupabaseService,
     ) {}
 
+    async saveMatch(eventId: string, matchedVolunteers: any[]): Promise<any> {
+        try {
+            const { success, data, error } = await this.supabaseService.VolunteerDBService.saveMatch(eventId, matchedVolunteers);
+            if (!success) {
+                return { status: 400, message: error };
+            }
+            return { status: 200, data: data, message: "Match saved successfully" };
+        } catch (error) {
+            console.log(error.stack);
+            return { status: 500, message: `Failed to save match - ${error.message}` };
+        }
+    }
     async getAllVolunteerProfiles(): Promise<any> {
         const { data, error } = await this.supabaseService.VolunteerDBService.getAllVolunteerProfiles();
         if (error) throw error;

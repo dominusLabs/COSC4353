@@ -5,14 +5,13 @@ import { HistoryService } from '../services/history.service';
 export class HistoryController {
   constructor(private readonly historyService: HistoryService) {}
 
-  @Post('add')
-  addEvent(@Body() body: { volunteerId: string; eventId: string }) {
-    this.historyService.addEvent(body.volunteerId, body.eventId);
-    return { message: 'Event added' };
+  @Get(':volunteerId')
+  async getVolunteerHistory(@Param('volunteerId') volunteerId: string): Promise<any> {
+      return this.historyService.getVolunteerHistory(volunteerId);
   }
 
-  @Get(':volunteerId')
-  getHistory(@Param('volunteerId') volunteerId: string) {
-    return this.historyService.getHistory(volunteerId);
+  @Post('add')
+  async addVolunteerHistory(@Body() { volunteerId, event }: { volunteerId: string, event: any }): Promise<any> {
+      return this.historyService.addVolunteerHistory(volunteerId, event);
   }
 }

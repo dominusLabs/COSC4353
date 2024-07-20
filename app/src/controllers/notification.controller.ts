@@ -12,7 +12,22 @@ export class NotificationController {
   // }
 
   @Post('send')
-  sendNotification(@Body() body: { volunteerId: string; message: string }) {
-    return this.notificationService.sendNotification(body.volunteerId, body.message);
+  async sendNotification(@Body() { volunteerId, message }: { volunteerId: string, message: string }): Promise<any> {
+      return this.notificationService.sendNotification(volunteerId, message);
+  }
+
+  @Post('event-assignment')
+  async sendEventAssignmentNotification(@Body() { eventId, volunteerId }: { eventId: string, volunteerId: string }): Promise<any> {
+      return this.notificationService.sendEventAssignmentNotification(eventId, volunteerId);
+  }
+
+  @Post('event-update')
+  async sendEventUpdateNotification(@Body() { eventId, volunteerId }: { eventId: string, volunteerId: string }): Promise<any> {
+      return this.notificationService.sendEventUpdateNotification(eventId, volunteerId);
+  }
+
+  @Post('event-reminder')
+  async sendEventReminderNotification(@Body() { eventId, volunteerId }: { eventId: string, volunteerId: string }): Promise<any> {
+      return this.notificationService.sendEventReminderNotification(eventId, volunteerId);
   }
 }
