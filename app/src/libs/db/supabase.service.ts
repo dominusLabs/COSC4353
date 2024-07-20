@@ -1,13 +1,12 @@
-import { Injectable, Scope, Inject } from '@nestjs/common';
+import { Injectable, Scope } from '@nestjs/common';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
-import {AuthDBService} from './auth.db.service';
-import {EventDBService} from './event.db.service';
-import {NotificationDBService} from './notification.db.service';
-import {PricingDBService} from './pricing.db.service';
-import {ProfileDBService} from './profile.db.service';
-import {VolunteerDBService} from './volunteer.db.service';
-
+import { AuthDBService } from './auth.db.service';
+import { EventDBService } from './event.db.service';
+import { NotificationDBService } from './notification.db.service';
+import { PricingDBService } from './pricing.db.service';
+import { ProfileDBService } from './profile.db.service';
+import { VolunteerDBService } from './volunteer.db.service';
 
 @Injectable({ scope: Scope.REQUEST })
 export class SupabaseService {
@@ -15,12 +14,10 @@ export class SupabaseService {
   private supabaseKey: string;
   private supabaseUserClient: SupabaseClient;
   public supabaseAdminClient: SupabaseClient;
-  
-  constructor()  {
-    const supabaseUrl: string = process.env.SUPABASE_URL;
-    const supabaseKey: string = process.env.SUPABASE_KEY;
-    this.supabaseUrl = supabaseUrl;
-    this.supabaseKey = supabaseKey;
+
+  constructor() {
+    this.supabaseUrl = process.env.SUPABASE_URL;
+    this.supabaseKey = process.env.SUPABASE_KEY;
     this.supabaseAdminClient = createClient(this.supabaseUrl, this.supabaseKey);
   }
 
@@ -33,32 +30,30 @@ export class SupabaseService {
       auth: {
         persistSession: false,
         autoRefreshToken: false,
-        detectSessionInUrl: false
-      }, 
+        detectSessionInUrl: false,
+      },
       global: {
         headers: {
           Authorization: `Bearer ${token}`,
-        }
+        },
       },
     });
 
-    return supabaseUserClient;
+    this.supabaseUserClient = supabaseUserClient; // Cache the client for future use
+    return this.supabaseUserClient;
   }
 
-  async validateToken(token: string): Promise<{data, error}> {
+  async validateToken(token: string): Promise<{ data: any, error: any }> {
     const { data, error } = await this.supabaseAdminClient.auth.getUser(token);
-    if(error) {
-      return {data, error}
-    }
-    
-    const { data: userData, error: userError } = await this.AuthDBService.getUserbyUserID(data.user.id)
-    if(userError) {
-      return { data, error }
+    if (error) {
+      return { data, error };
     }
 
-    let accountType = userData.account_type
-    data['user']['account_type'] = accountType
-    return { data, error }
+    const { data: userData, error: userError } = await this.AuthDBService.getUserbyUserID(data.user.id);
+    if (userError) {
+      return { data, error: userError };
+    }
+    return { data, error };
   }
 
   get AuthDBService(): AuthDBService {
