@@ -130,6 +130,32 @@ document.addEventListener('DOMContentLoaded', function () {
             .catch(error => console.error('Error deleting volunteer match:', error));
     }
 
+    // Fetch events and populate event select box
+    fetch('/api/event/all')
+        .then(response => response.json())
+        .then(events => {
+            events.forEach(event => {
+                const option = document.createElement('option');
+                option.value = event.event_id;
+                option.textContent = event.name;
+                eventName.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error fetching events:', error));
+
+    // Fetch volunteer profiles and populate volunteer select box
+    fetch('/api/volunteer/profiles')
+        .then(response => response.json())
+        .then(volunteers => {
+            volunteers.forEach(volunteer => {
+                const option = document.createElement('option');
+                option.value = volunteer.id;
+                option.textContent = volunteer.fullname;
+                volunteerNameElement.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error fetching volunteers:', error));
+
     // Fetch volunteer matches initially
     fetchVolunteerMatches();
 });
