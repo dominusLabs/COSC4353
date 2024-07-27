@@ -12,4 +12,10 @@ export class NotificationService {
     if (error) throw error;
     return data;
   }
+
+  async updateNotificationStatus(notificationId: string, isRead: boolean): Promise<any> { // Change to update is_read
+    const { data, error } = await this.supabaseService.NotificationDBService.updateNotificationStatus(notificationId, isRead);
+    if (error) throw error;
+    return data;
+  }
 }
