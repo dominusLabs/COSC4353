@@ -41,4 +41,22 @@ export class NotificationDBService {
             return { success: false, error: `Failed to get notification by id: ${error}`, data: null };
         }
     }
+
+    async updateNotificationStatus(notificationId: string, isRead: boolean): Promise<any> { // Change to update is_read
+        try {
+            const { data, error } = await this.supabaseClient
+                .from('notification')
+                .update({ is_read: isRead }) // Update the is_read field
+                .eq('id', notificationId);
+
+            console.log(data, error)
+            if (error) {
+                throw error;
+            }
+            return { success: true, data: data, error: null };
+        } catch (error) {
+            console.error(error);
+            return { success: false, error: `Failed to update notification status: ${error}`, data: null };
+        }
+    }
 }

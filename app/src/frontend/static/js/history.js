@@ -11,9 +11,6 @@ document.addEventListener('DOMContentLoaded', function () {
               <td>${event.user_id}</td>
               <td>${event.event_id}</td>
               <td>${event.participation_status}</td>
-              <td>
-                  <button class="btn btn-danger btn-sm" onclick="deleteEvent('${event.id}', this)">Delete</button>
-              </td>
           `;
           historyList.appendChild(listItem);
       });
@@ -27,18 +24,6 @@ document.addEventListener('DOMContentLoaded', function () {
           renderHistory(events);
       } catch (error) {
           console.error('Error fetching events:', error);
-      }
-  }
-
-  async function deleteEvent(eventId, button) {
-      try {
-          const response = await fetch(`/api/history/${eventId}`, {
-              method: 'DELETE',
-          });
-          if (!response.ok) throw new Error('Error deleting event');
-          button.closest('tr').remove();
-      } catch (error) {
-          console.error('Error deleting event:', error);
       }
   }
 
