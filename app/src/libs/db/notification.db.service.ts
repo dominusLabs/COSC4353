@@ -8,31 +8,37 @@ export class NotificationDBService {
         this.supabaseClient = supabaseClient;
     }
 
-    async createNotification(volunteerId: string, message: string) {
-        try {
-            const notification = { volunteer_id: volunteerId, message, created_at: new Date().toISOString() };
-            const { data, error } = await this.supabaseClient.from('notifications').insert(notification);
+    async getNotifications(): Promise<any> {
+        try { 
+            const { data, error } = await this.supabaseClient
+                .from('notification')
+                .select('*');
+            console.log(data, error)
             if (error) {
-                throw new Error(error.message);
+                throw error;
             }
             return { success: true, data: data, error: null };
         } catch (error) {
-            console.log(error.stack);
-            return { success: false, data: null, error: `Failed to create notification - ${error.message}` };
-        }
+            console.error(error);
+            return { success: false, error: `Failed to get notifications: ${error}` , data: null};
+        }   
     }
 
-    async getNotificationsByVolunteer(volunteerId: string) {
+    async getNotificationByID(notificationId: string): Promise<any> {
         try {
-            const { data, error } = await this.supabaseClient.from('notifications').select("*").eq('volunteer_id', volunteerId);
+            const { data, error } = await this.supabaseClient
+                .from('notification')
+                .select('*')
+                .eq('id', notificationId);
+
+            console.log(data, error)
             if (error) {
-                throw new Error(error.message);
+                throw error;
             }
             return { success: true, data: data, error: null };
         } catch (error) {
-            console.log(error.stack);
-            return { success: false, data: null, error: `Failed to get notifications - ${error.message}` };
+            console.error(error);
+            return { success: false, error: `Failed to get notification by id: ${error}`, data: null };
         }
     }
 }
-

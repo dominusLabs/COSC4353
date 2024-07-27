@@ -1,23 +1,15 @@
 import { Injectable } from '@nestjs/common';
-
-export interface HistoryRecord {
-  volunteerId: string;
-  events: string[];
-}
+import { SupabaseService } from '../libs/db/supabase.service';
 
 @Injectable()
 export class HistoryService {
-  private volunteerHistories = new Map<string, any[]>(); // Hardcoded data structure
+  constructor(
+    private supabaseService: SupabaseService,
+  ) {}
 
-  async getVolunteerHistory(volunteerId: string): Promise<any> {
-      const history = this.volunteerHistories.get(volunteerId) || [];
-      return { status: 200, data: history, message: 'Volunteer history retrieved successfully' };
-  }
-
-  async addVolunteerHistory(volunteerId: string, event: any): Promise<any> {
-      const history = this.volunteerHistories.get(volunteerId) || [];
-      history.push(event);
-      this.volunteerHistories.set(volunteerId, history);
-      return { status: 200, message: 'Volunteer history updated successfully' };
+  async getHistory(): Promise<any> {
+    const { data, error } = await this.supabaseService.HistoryDBService.getHistory();
+    if (error) throw error;
+    return data;
   }
 }

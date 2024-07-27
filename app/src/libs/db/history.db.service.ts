@@ -4,35 +4,42 @@ import { SupabaseClient } from '@supabase/supabase-js';
 @Injectable()
 export class HistoryDBService {
     private serviceName: string = 'HistoryDBService';
-
     constructor(private supabaseClient: SupabaseClient) {
         this.supabaseClient = supabaseClient;
     }
 
-    async addVolunteerHistory(volunteerId: string, event: any) {
-        try {
-            const historyEntry = { volunteer_id: volunteerId, event, created_at: new Date().toISOString() };
-            const { data, error } = await this.supabaseClient.from('volunteer_history').insert(historyEntry);
-            if (error) {
-                throw new Error(error.message);
+    async getHistory(): Promise<any> {
+        try { 
+            const { data, error } = await this.supabaseClient
+                .from('history')
+                .select('*');
+            console.log(data, error)
+            if(error) {
+                throw error;
             }
             return { success: true, data: data, error: null };
         } catch (error) {
-            console.log(error.stack);
-            return { success: false, data: null, error: `Failed to add volunteer history - ${error.message}` };
+            console.error(error);
+            return { success: false, error: `Failed to get history: ${error}` , data: null};
+        }   
+    }
+
+    async getHistoryByID(userId: string): Promise<any> {
+        try {
+            const { data, error } = await this.supabaseClient
+            .from('history')
+            .select('*')
+            .eq('event_id', userId);
+
+            console.log(data, error)
+            if (error) {
+                throw error;
+            }
+            return { success: true, data: data, error: null };
+        } catch (error) {
+            console.error(error);
+            return { success: false, error: `Failed to get history by id: ${error}`, data: null };
         }
     }
 
-    async getVolunteerHistory(volunteerId: string) {
-        try {
-            const { data, error } = await this.supabaseClient.from('volunteer_history').select("*").eq('volunteer_id', volunteerId);
-            if (error) {
-                throw new Error(error.message);
-            }
-            return { success: true, data: data, error: null };
-        } catch (error) {
-            console.log(error.stack);
-            return { success: false, data: null, error: `Failed to get volunteer history - ${error.message}` };
-        }
-    }
 }

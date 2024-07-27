@@ -1,31 +1,47 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const tableData = [
-        { notification_date: '2024-06-27', notification_type: 'New Event Posted', notification_message: 'A new event "Community Clean-Up" has been posted.', notification_action: 'View Event'},
-        { notification_date: '2024-06-25', notification_type: 'Event Reminder', notification_message: 'Reminder: You have signed up for the "Tree Planting" event on 2024-06-30.', notification_action: 'View Event' },
-    ];
+    const notificationList = document.getElementById('notificationList');
 
-    const rowsPerPage = 5;
-    let currentPage = 1;
-
-    function displayTableData(page) {
-        const tableBody = document.getElementById('tableBody');
-        tableBody.innerHTML = '';
-        const startIndex = (page - 1) * rowsPerPage;
-        const endIndex = startIndex + rowsPerPage;
-        const paginatedData = tableData.slice(startIndex, endIndex);
-
-        paginatedData.forEach(row => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td data-label="Date">${row.notification_date}</td>
-                <td data-label="Type">${row.notification_type}</td>
-                <td data-label="Message">${row.notification_message}</td>
-                <td data-label="Action">${row.notification_action}</td>
+    function renderNotifications(data) {
+        notificationList.innerHTML = '';
+        data.forEach(notification => {
+            const listItem = document.createElement('tr');
+            listItem.innerHTML = `
+                <td>${notification.id}</td>
+                <td>${new Date(notification.created_at).toLocaleString()}</td>
+                <td>${notification.user_id}</td>
+                <td>${notification.message}</td>
+                <td>${notification.status}</td>
+                <td>
+                    <button class="btn btn-danger btn-sm" onclick="deleteNotification('${notification.id}', this)">Delete</button>
+                </td>
             `;
-            tableBody.appendChild(tr);
+            notificationList.appendChild(listItem);
         });
     }
 
-    displayTableData(currentPage);
-    window.setupPagination(currentPage, tableData, rowsPerPage);
+    async function getNotifications() {
+        try {
+            const response = await fetch('/api/notifications/all');
+            if (!response.ok) throw new Error('Error fetching notifications');
+            const notifications = await response.json();
+            renderNotifications(notifications);
+        } catch (error) {
+            console.error('Error fetching notifications:', error);
+        }
+    }
+
+    async function deleteNotification(notificationId, button) {
+        try {
+            const response = await fetch(`/api/notifications/${notificationId}`, {
+                method: 'DELETE',
+            });
+            if (!response.ok) throw new Error('Error deleting notification');
+            button.closest('tr').remove();
+        } catch (error) {
+            console.error('Error deleting notification:', error);
+        }
+    }
+
+    // Fetch notifications initially
+    getNotifications();
 });
