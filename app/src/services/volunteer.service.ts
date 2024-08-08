@@ -7,6 +7,12 @@ export class VolunteerService {
         private readonly supabaseService: SupabaseService,
     ) {}
 
+    async getVolunteers(): Promise<any> {
+        const { data, error } = await this.supabaseService.VolunteerDBService.getVolunteers();
+        if (error) throw error;
+        return data;
+      }
+
     async saveMatch(eventId: string, matchedVolunteers: any[]): Promise<any> {
         try {
             const { success, data, error } = await this.supabaseService.VolunteerDBService.saveMatch(eventId, matchedVolunteers);
