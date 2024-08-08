@@ -1,10 +1,34 @@
-document.getElementById('loginButton').addEventListener('click', function() {
-  window.location.href = '/login'; // Redirect to login page
+document.addEventListener('DOMContentLoaded', function() {
+  // Login button
+  document.getElementById('loginButton')?.addEventListener('click', function() {
+    window.location.href = '/login'; // Redirect to login page
+  });
+
+  // Signup button
+  document.getElementById('signupButton')?.addEventListener('click', function() {
+    window.location.href = '/register'; // Redirect to register page
+  });
+
+  // Logout button
+  document.getElementById('logoutButton')?.addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent the default button action
+
+    axios.get('/logout')
+      .then(function(response) {
+        if (response.status === 200) {
+          window.location.href = '/login'; // Redirect to login page after successful logout
+        } else {
+          console.error('Logout failed with status:', response.status);
+          alert('Logout failed. Please try again.');
+        }
+      })
+      .catch(function(error) {
+        console.error('Error during logout:', error);
+        alert('An error occurred while logging out.');
+      });
+  });
 });
-  
-document.getElementById('signupButton').addEventListener('click', function() {
-  window.location.href = '/register'; // Redirect to register page
-});
+
 
 // window.renderRequestResponse = function(message, duration = 3000) {
 //   const container = document.getElementById('notification-container');

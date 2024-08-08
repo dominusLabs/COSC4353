@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Render, UseGuards} from '@nestjs/common';
+import { Controller, Get, Post, Body, Render, UseGuards, Request, Response} from '@nestjs/common';
 import { EventService } from '../services/event.service';
 import { AuthGuard } from './auth.guard';
 
@@ -12,6 +12,12 @@ export class PublicController {
         return {};
     }
 
+    @Get('logout')
+    async logout(@Request() req, @Response() res) {
+        res.cookie('token', '', { expires: new Date(0) });
+        res.redirect('/login');
+    }
+
     @Get('register')
     @Render('register')
     getRegister() {
@@ -19,7 +25,6 @@ export class PublicController {
     }
 
     @Get('events')
-    @UseGuards(AuthGuard)
     @Render('events')
     getEvent() {
         return {};
@@ -28,51 +33,56 @@ export class PublicController {
     @Get('eventmanagement')
     @UseGuards(AuthGuard)
     @Render('eventmanagement')
-    getEventManagement() {
-        return {};
+    getEventManagement(@Request() req) {
+        return { user: req.body.user };
     }
-
 
     @Get('volunteer_history')
     @UseGuards(AuthGuard)
     @Render('volunteer_history')
-    getVolunteerHistory() {
-        return {};
+    getVolunteerHistory(@Request() req) {
+        return { user: req.body.user };
     }
 
     @Get('volunteer_search')
     @UseGuards(AuthGuard)
     @Render('volunteer_search')
-    getVolunteerSearch() {
-        return {};
+    getVolunteerSearch(@Request() req) {
+        return { user: req.body.user };
     }
 
     @Get('volunteer_details')
     @UseGuards(AuthGuard)
     @Render('volunteer_details')
-    getVolunteerDetails() {
-        return {};
+    getVolunteerDetails(@Request() req) {
+        return { user: req.body.user };
     }
 
     @Get('volunteer_matching')
     @UseGuards(AuthGuard)
     @Render('volunteer_matching')
-    getVolunteerMatching() {
-        return {};
+    getVolunteerMatching(@Request() req) {
+        return { user: req.body.user };
     }
 
     @Get('profile')
     @UseGuards(AuthGuard)
     @Render('profile')
-    getProfile() {
-        return {};
+    getProfile(@Request() req) {
+        return { user: req.body.user };
     }
 
     @Get('notifications')
     @UseGuards(AuthGuard)
     @Render('notifications')
-    getNotifications() {
-        return {};
+    getNotifications(@Request() req) {
+        return { user: req.body.user };
     }
 
+    @Get('reports')
+    @UseGuards(AuthGuard)
+    @Render('reports')
+    getReports(@Request() req) {
+        return { user: req.body.user };
+    }
 }
