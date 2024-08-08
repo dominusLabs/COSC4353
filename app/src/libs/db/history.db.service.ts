@@ -12,7 +12,21 @@ export class HistoryDBService {
         try { 
             const { data, error } = await this.supabaseClient
                 .from('history')
-                .select('*');
+                .select(`
+                    event_id,
+                    participation_status,
+                    profile:profile (
+                        fullname
+                    ),
+                    events:events (
+                        name,
+                        description,
+                        location,
+                        required_skills,
+                        urgency,
+                        date
+                    )
+                `);
             console.log(data, error)
             if(error) {
                 throw error;
