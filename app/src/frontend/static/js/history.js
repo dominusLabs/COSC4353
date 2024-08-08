@@ -6,10 +6,13 @@ document.addEventListener('DOMContentLoaded', function () {
       data.forEach(event => {
           const listItem = document.createElement('tr');
           listItem.innerHTML = `
-              <td>${event.id}</td>
-              <td>${new Date(event.created_at).toLocaleString()}</td>
-              <td>${event.user_id}</td>
-              <td>${event.event_id}</td>
+              <td>${event.profile.fullname}</td>
+              <td>${event.events.name}</td>
+              <td>${event.events.description}</td>
+              <td>${event.events.location}</td>
+              <td>${event.events.required_skills.join(', ')}</td>
+              <td>${event.events.urgency}</td>
+              <td>${new Date(event.events.date).toLocaleDateString()}</td>
               <td>${event.participation_status}</td>
           `;
           historyList.appendChild(listItem);

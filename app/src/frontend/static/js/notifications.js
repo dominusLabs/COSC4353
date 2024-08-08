@@ -15,9 +15,7 @@ function renderNotifications(data) {
     data.forEach(notification => {
         const listItem = document.createElement('tr');
         listItem.innerHTML = `
-            <td>${notification.id}</td>
             <td>${new Date(notification.created_at).toLocaleString()}</td>
-            <td>${notification.user_id}</td>
             <td>${notification.message}</td>
             <td>${notification.is_read ? 'Read' : 'Unread'}</td>
             <td>

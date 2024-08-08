@@ -32,9 +32,4 @@ export class AuthController {
     let responseBody = await this.authService.loginAccount(body);
     response.status(responseBody.status).json(responseBody);
   }
-
-  // @Get("/")
-  // getHello(): string {
-  //   return this.authService.getHello();
-  // }
 }

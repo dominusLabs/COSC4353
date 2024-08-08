@@ -16,7 +16,7 @@
         <form id="eventForm">
             <div class="col-12">
                 <label for="name" class="form-label">Event Name</label>
-                <input type="text" class="form-control" id="name" name="name" maxlength="100" required>
+                <input type="text" class="form-control" id="name" name="name" maxlength="100" autocomplete="off" required>
             </div>
             <div class="col-12">
                 <label for="description" class="form-label">Event Description</label>
@@ -24,16 +24,25 @@
             </div>
             <div class="col-12">
                 <label for="location" class="form-label">Location</label>
-                <input id="location" class="form-control" name="location" required>
+                <input id="location" class="form-control" name="location" autocomplete="off" required>
             </div>
              <div class="col-12">
                 <label for="skills" class="form-label">Required Skills</label>
                 <select id="requiredSkills" name="skills" class="form-select" multiple required>
-                    <option value="woodworking">Woodworking</option>
-                    <option value="cooking">Cooking</option>
-                    <option value="gardening">Gardening</option>
-                    <option value="handyman_services">Handyman Services</option>
-                    <option value="childcare">Childcare</option>
+                    <option value="customer_service">Customer Service</option>
+                    <option value="event_setup_breakdown">Event Setup and Breakdown</option>
+                    <option value="food_service">Food Service</option>
+                    <option value="cleaning_maintenance">Cleaning and Maintenance</option>
+                    <option value="greeting_checkin">Greeting and Check-In</option>
+                    <option value="crowd_management">Crowd Management</option>
+                    <option value="route_navigation">Route Navigation</option>
+                    <option value="timing_scoring">Timing and Scoring</option>
+                    <option value="participant_support">Participant Support</option>
+                    <option value="safety_monitoring">Safety Monitoring</option>
+                    <option value="data_entry">Data Entry</option>
+                    <option value="scheduling">Scheduling</option>
+                    <option value="inventory_management">Inventory Management</option>
+                    <option value="technical_assistance">Technical Assistance</option>
                 </select>
             </div>
             <div class="col-12">
@@ -46,7 +55,7 @@
             </div>
             <div class="col-12">
                 <label for="date" class="form-label">Event Date</label>
-                <input type="text" class="form-control" id="date" name="date" placeholder="Select date" required>
+                <input type="date" class="form-control" id="date" name="date" placeholder="Select date" required>
             </div>
             <div class="buttons">
                 <button type="submit" class="btn btn-primary w-50 py-2 my-3 rounded-pill">Submit</button>

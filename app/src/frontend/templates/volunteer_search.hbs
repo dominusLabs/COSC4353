@@ -6,21 +6,20 @@
   <script src="/public/js/volunteer_search.js"></script>
 
   <div class="table-container">
-      <h3>Volunteer Search</h3>
-      <div class="search-bar">
-          <input type="text" id="searchInput" class="form-control" placeholder="Search for volunteers...">
-      </div>
+      <h3>Volunteer List</h3>
       <table id="volunteerTable" class="table table-striped">
           <thead>
               <tr>
-                  <th>Volunteer Name</th>
-                  <th>Email</th>
-                  <th>Phone Number</th>
+                  <th>Name</th>
+                  <th>City</th>
+                  <th>State</th>
                   <th>Skills</th>
-                  <th>Registered Date</th>
+                  <th>Availability</th>
+                  <th>Preferences</th>
               </tr>
           </thead>
-          <tbody id="tableBody">
+          <tbody id="volunteersList">
+            <!-- Volunteers will be populated here -->
           </tbody>
       </table>
       <div id="pagination" class="pagination"></div>

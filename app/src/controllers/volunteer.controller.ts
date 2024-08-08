@@ -11,6 +11,11 @@ export class VolunteerController {
     private readonly eventService: EventService,
   ) {}
 
+  @Get('/all')
+  async getNotifications() {
+    return this.volunteerService.getVolunteers();
+  }
+  
   @Get('/profiles')
   @UseGuards(AuthGuard)
   async getAllVolunteerProfiles() {

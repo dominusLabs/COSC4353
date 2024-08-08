@@ -3,7 +3,26 @@ import { SupabaseClient } from '@supabase/supabase-js';
 
 @Injectable()
 export class VolunteerDBService {
-  constructor(private supabaseClient: SupabaseClient) {}
+  private serviceName: string = 'VolunteerDBService';
+  constructor(private supabaseClient: SupabaseClient) {
+      this.supabaseClient = supabaseClient;
+  }
+
+  async getVolunteers(): Promise<any> {
+    try { 
+        const { data, error } = await this.supabaseClient
+            .from('profile')
+            .select('*');
+        console.log(data, error)
+        if (error) {
+            throw error;
+        }
+        return { success: true, data: data, error: null };
+    } catch (error) {
+        console.error(error);
+        return { success: false, error: `Failed to get volunteers: ${error}` , data: null};
+    }   
+}
 
   async getAllVolunteerProfiles(): Promise<any> {
     try{

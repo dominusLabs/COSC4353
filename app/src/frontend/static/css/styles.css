@@ -8,6 +8,7 @@ body {
 }
 .container-fluid.bg-light {
     background-color: #EEEEEE !important;
+    min-height: 600px;
 }
 .container-fluid.bg-black {
     background-color: #000000 !important;
