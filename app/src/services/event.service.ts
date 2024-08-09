@@ -86,15 +86,7 @@ async getEventById(eventId: string): Promise<any> {
     if (!success) {
       return { status: 400, message: error };
     }
-
-    console.log(data)
-    const { success: success2, data: data2, error: error2 } = await this.supabaseService.EventDBService.getEventVolunteers(eventId);
-    if (!success2) {
-      return { status: 400, message: error2 };
-    }
-
-    console.log(data2)
-    data.matched_volunteers = data2;
+    
     return { status: 200, data: data, message: "Event retrieved successfully" };
   } catch(error) {
     console.log(error.stack);
