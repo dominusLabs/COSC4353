@@ -59,4 +59,18 @@ export class NotificationDBService {
             return { success: false, error: `Failed to update notification status: ${error}`, data: null };
         }
     }
+    
+    async createNotification(notificationData: any): Promise<any> {
+        try { 
+            const { data, error } = await this.supabaseClient.from('notification').upsert([notificationData], { onConflict: 'id' })
+            if(error) {
+                throw new Error(error.message)
+            }
+            return { success: true, data: data, error: null}
+        } catch(error) {
+            console.error(error);
+            return { success: false, error: `Failed to create event: ${error}` , data: null};
+        }
+
+    }
 }

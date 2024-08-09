@@ -139,6 +139,7 @@ function generatePDF() {
     theme: 'grid', // Theme for table styling
     didDrawPage: function (data) {
       doc.setFontSize(9);
+      doc.text(`Page ${doc.internal.getNumberOfPages()}`, 10, doc.internal.pageSize.height - 10);
     }
   });
 

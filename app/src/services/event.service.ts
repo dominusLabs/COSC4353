@@ -1,12 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { SupabaseService } from '../libs/db/supabase.service';
+import { NotificationService } from '../services/notification.service';
 
 
 @Injectable()
 export class EventService {
     constructor(
         private supabaseService: SupabaseService,
+        private notificationService: NotificationService
     ) {}
 
   async getAllEvents(): Promise<any> {
@@ -21,6 +23,9 @@ export class EventService {
         if (!sucess != true) {
             return { status: 400, message: error }
         }
+        const notificationMessage = `A new event has been created: ${event.name}`;
+        await this.notificationService.createNotification(notificationMessage);
+
         return { status: 200, data: data, message: "Event created successfully" }
     } catch(error) {
         console.log(error.stack)
