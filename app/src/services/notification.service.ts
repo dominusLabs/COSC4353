@@ -18,4 +18,21 @@ export class NotificationService {
     if (error) throw error;
     return data;
   }
+
+  async createNotification(message: string): Promise<any> {
+    try {
+      const { data, error } = await this.supabaseService.NotificationDBService.createNotification({
+        message,
+        is_read: false,
+        created_at: new Date().toISOString(),
+      });
+
+      if (error) throw error;
+      return data;
+    } catch (error) {
+      console.error('Error creating notification:', error);
+      throw error;
+    }
+  }
+
 }
