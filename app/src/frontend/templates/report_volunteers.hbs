@@ -1,15 +1,16 @@
 {{#> layout}}
   <title>Volunteer Report</title>
   <link rel="stylesheet" href="/public/css/volunteer_history.css">
-  <script src="/public/js/report.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 
   <div class="table-container">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">Volunteer Report</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
-        <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-        <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary" id="pdfButton" onclick="generatePDF()">Export PDF</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary" id="csvButton" onclick="generateCSV()">Export CSV</button>
         </div>
     </div>
     </div>
@@ -80,4 +81,93 @@
     </table>
   </div>
 
+<script>
+    function getData() {
+      const table = document.getElementById("volunteerTable");
+      const rows = table.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+      const data = [];
+
+      for (let i = 0; i < rows.length; i++) {
+        const cells = rows[i].getElementsByTagName("td");
+        data.push({
+          volunteer: cells[0].textContent,
+          event_name: cells[1].textContent,
+          description: cells[2].textContent,
+          required_skills: cells[3].textContent,
+          location: cells[4].textContent,
+          urgency: cells[5].textContent,
+          date: cells[6].textContent,
+          participation_status: cells[7].textContent
+        })
+      }
+      return data;
+    }
+
+    function convertToCSV(headers, objArray) {
+      const array = typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;
+      let str = '';
+      let row = '';
+
+      // Add the provided headers to the CSV
+      row = headers.join(','); // Join headers array with commas
+      str += row + '\r\n'; // Add header row to the CSV string
+
+      // Create the data rows
+      for (let i = 0; i < array.length; i++) {
+        let line = '';
+        for (let index in array[i]) {
+          if (line !== '') line += ',';
+          line += array[i][index];
+        }
+        str += line + '\r\n';
+      }
+
+      return str;
+    }
+
+    function generateCSV() {
+      let jsonData = getData();
+
+      // Specify the headers explicitly
+      const headers = [
+        'Volunteer',
+        'Event Name', 
+        'Description', 
+        'Required Skills', 
+        'Location', 
+        'Urgency', 
+        'Date', 
+        'Participation Status'
+      ];
+
+      const csv = convertToCSV(headers, jsonData);
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'output.csv';
+      link.click();
+    }
+
+    function generatePDF() {
+      let jsonData = getData();
+      console.log(jsonData)
+      const doc = new jspdf.jsPDF();
+
+      doc.setFontSize(16);
+      doc.text('Volunteer Report:', 10, 10);
+
+      jsonData.forEach((item, index) => {
+        doc.setFontSize(12);
+        doc.text(`Item ${index + 1}:`, 10, 20 + index * 20);
+        let yOffset = 10 + (index + 1) * 20;
+        for (const key in item) {
+          doc.text(`${key}: ${item[key]}`, 10, yOffset);
+          yOffset += 10;
+        }
+      });
+
+      doc.save('output.pdf');
+    }
+  </script>
+  <script src="/public/js/report.js"></script>
 {{/layout}}
