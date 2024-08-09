@@ -1,6 +1,8 @@
 {{#> layout}}
   <title>Event Report</title>
   <link rel="stylesheet" href="/public/css/volunteer_history.css">
+  <link rel="stylesheet" href="/public/css/pagination.css">
+  <script src="/public/js/pagination.js"></script>
   <script src="/public/js/report.js"></script>
 
   <div class="table-container">
@@ -14,70 +16,25 @@
     </div>
     </div>
 
-    <form id="volunteerSearchForm" class="mb-4">
-        <div class="row">
-            <div class="col">
-                <input type="text" class="form-control" name="volunteer" placeholder="Volunteer Name">
-            </div>
-            <div class="col">
-                <input type="text" class="form-control" name="event" placeholder="Event Name">
-            </div>
-            <div class="col">
-                <input type="date" class="form-control" name="date">
-            </div>
-            <div class="col">
-                <button type="submit" class="btn btn-primary">Search</button>
-            </div>
-        </div>
-    </form>
-
-    <form id="eventSearchForm" class="mb-4">
-        <div class="row">
-            <div class="col">
-                <input type="text" class="form-control" name="event" placeholder="Event Name">
-            </div>
-            <div class="col">
-                <input type="date" class="form-control" name="date">
-            </div>
-            <div class="col">
-                <button type="submit" class="btn btn-primary">Search</button>
-            </div>
-        </div>
-    </form>
-
-
-    <table id="eventTable" class="table table-striped table-sm">
-      <thead>
-        <tr>
-          <th>Event Name</th>
-          <th>Description</th>
-          <th>Required Skills</th>
-          <th>Location</th>
-          <th>Urgency</th>
-          <th>Date</th>
-          <th>Participant</th>
-          <th>Participation Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each events}}
-          {{#each participants}}
-            <tr>
-              {{#if @first}}
-                <td rowspan="{{@../participants.length}}">{{name}}</td>
-                <td rowspan="{{@../participants.length}}">{{description}}</td>
-                <td rowspan="{{@../participants.length}}">{{required_skills}}</td>
-                <td rowspan="{{@../participants.length}}">{{location}}</td>
-                <td rowspan="{{@../participants.length}}">{{urgency}}</td>
-                <td rowspan="{{@../participants.length}}">{{date}}</td>
-              {{/if}}
-              <td>{{profile.fullname}}</td>
-              <td>{{participation_status}}</td>
-            </tr>
-          {{/each}}
-        {{/each}}
-      </tbody>
-    </table>
+  <div class="table-container">
+      <table id="eventReportTable" class="table table-striped table-sm">
+          <thead>
+              <tr>
+                <th>Event Name</th>
+                <th>Description</th>
+                <th>Required Skills</th>
+                <th>Location</th>
+                <th>Urgency</th>
+                <th>Date</th>
+                <th>Participant</th>
+                <th>Participation Status</th>
+              </tr>
+          </thead>
+          <tbody id="eventReportList">
+              <!-- Event report will be populated here -->
+          </tbody>
+      </table>
+      <div id="pagination" class="pagination"></div>
   </div>
 
 {{/layout}}

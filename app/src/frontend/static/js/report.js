@@ -1,44 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const eventsList = document.getElementById('eventsList');
-    const volunteersList = document.getElementById('volunteersList');
+    const volunteersList = document.getElementById('volunteerReportList');
     
-    async function getReports(type, query = '') {
-        try {
-            const response = await fetch(`/api/report/${type}?${query}`);
-            if (!response.ok) throw new Error('Error fetching reports');
-            const data = await response.json();
-            
-            console.log(`Fetched ${type} data:`, data);
-            
-            if (type === 'events') {
-                renderEvents(data);
-            } else if (type === 'volunteers') {
-                renderVolunteers(data);
-            }
-        } catch (error) {
-            console.error(`Error fetching ${type}:`, error);
-        }
-    }
-    
-    function renderEvents(data) {
-        eventsList.innerHTML = '';
-        data.forEach(event => {
-            const listItem = document.createElement('tr');
-            listItem.innerHTML = `
-                <td>${event.events.name}</td>
-                <td>${event.events.description}</td>
-                <td>${event.events.required_skills.join(', ')}</td>
-                <td>${event.events.location}</td>
-                <td>${event.events.urgency}</td>
-                <td>${new Date(event.events.date).toLocaleDateString()}</td>
-                <td>${event.profile.fullname}</td>
-                <td>${event.participation_status}</td>
-            `;
-            eventsList.appendChild(listItem);
-        });
-    }
-    
-    function renderVolunteers(data) {
+    function renderVolunteersReport(data) {
         volunteersList.innerHTML = '';
         data.forEach(volunteer => {
             const listItem = document.createElement('tr');
@@ -55,9 +18,52 @@ document.addEventListener('DOMContentLoaded', function () {
             volunteersList.appendChild(listItem);
         });
     }
+  
+    async function getVolunteersReport() {
+        try {
+            const response = await fetch('/api/report/volunteers');
+            if (!response.ok) throw new Error('Error fetching history');
+            const volunteers = await response.json();
+            renderVolunteersReport(volunteers);
+        } catch (error) {
+            console.error('Error fetching volunteer:', error);
+        }
+    }
+  
+    getVolunteersReport();
+  });
+  
+  document.addEventListener('DOMContentLoaded', function () {
+    const eventsList = document.getElementById('eventReportList');
     
-    // Example: Fetch reports on page load
-    getReports('events'); // Or 'volunteers'
-    
-    // You can add event listeners to search inputs and call `getReports` with appropriate query parameters
-});
+    function renderEventsReport(data) {
+        eventsList.innerHTML = '';
+        data.forEach(event => {
+            const listItem = document.createElement('tr');
+            listItem.innerHTML = `
+                <td>${event.events.name}</td>
+                <td>${event.events.description}</td>
+                <td>${event.events.required_skills.join(', ')}</td>
+                <td>${event.events.location}</td>
+                <td>${event.events.urgency}</td>
+                <td>${new Date(event.events.date).toLocaleDateString()}</td>
+                <td>${event.profile.fullname}</td>
+                <td>${event.participation_status}</td>
+            `;
+            eventsList.appendChild(listItem);
+        });
+    }
+  
+    async function getEventsReport() {
+        try {
+            const response = await fetch('/api/report/events');
+            if (!response.ok) throw new Error('Error fetching events');
+            const events = await response.json();
+            renderEventsReport(events);
+        } catch (error) {
+            console.error('Error fetching events:', error);
+        }
+    }
+  
+    getEventsReport();
+  });
