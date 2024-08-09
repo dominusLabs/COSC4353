@@ -2,20 +2,20 @@
 <script src="/public/js/register.js"></script>
 
 <div class="register-container">
-    <h3>Register</h3>
+    <h3 class="fw-bold mb-0 fs-2">Register</h3>
     <p>Register your account here.</p>
     <form action="#" method="POST" id="register-form"
         class="row g-0 needs-validation" novalidate>
-        <div>
+        <div class="form-floating mb-3">
             <label for="role"></label>
             <select id="role" name="role" class="form-select"
                 aria-label="Example">
-                <option value="volunteer">Select Role</option>
+                <option selected>Select Role</option>
                 <option value="volunteer">Volunteer</option>
                 <option value="administrator">Administrator</option>
             </select>
         </div>
-        <div class="form-floating">
+        <div class="form-floating mb-3">
             <input type="email" id="username" name="username"
                 class="form-control" placeholder required autocomplete="off"
                 minlength="1" maxlength="50">
@@ -36,7 +36,7 @@
         </div>
         <div class="buttons">
             <button type="submit"
-                class="btn btn-success w-100 py-2 mb-3 rounded-pill" id="register-button">Register</button>
+                class="btn btn-warning w-100 py-2 mb-3 rounded-3" id="register-button">Register</button>
             <p class="signup-prompt">Need to login? Click below</p>
             <a class="btn btn-outline-secondary py-2 rounded-pill" href="/login">Login</a>
         </div>

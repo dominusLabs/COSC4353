@@ -79,10 +79,17 @@ export class PublicController {
         return { user: req.body.user };
     }
 
-    @Get('reports')
+    @Get('report_events')
     @UseGuards(AuthGuard)
-    @Render('reports')
-    getReports(@Request() req) {
+    @Render('report_events')
+    getReportEvents(@Request() req) {
+        return { user: req.body.user };
+    }
+
+    @Get('report_volunteers')
+    @UseGuards(AuthGuard)
+    @Render('report_volunteers')
+    getReportVolunteer(@Request() req) {
         return { user: req.body.user };
     }
 }
