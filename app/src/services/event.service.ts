@@ -86,6 +86,7 @@ async getEventById(eventId: string): Promise<any> {
     if (!success) {
       return { status: 400, message: error };
     }
+    
     return { status: 200, data: data, message: "Event retrieved successfully" };
   } catch(error) {
     console.log(error.stack);

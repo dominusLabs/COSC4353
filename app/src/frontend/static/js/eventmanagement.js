@@ -62,7 +62,8 @@ document.addEventListener('DOMContentLoaded', function () {
           location: location.value,
           required_skills: selectedSkills,
           urgency: urgency.value,
-          date: eventDate.value
+          date: eventDate.value,
+          matched_volunteers: []
       }
 
       console.log(data)
