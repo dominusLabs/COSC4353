@@ -8,6 +8,7 @@ import { PricingDBService } from './pricing.db.service';
 import { ProfileDBService } from './profile.db.service';
 import { VolunteerDBService } from './volunteer.db.service';
 import { HistoryDBService } from './history.db.service';
+import { ReportDBService } from './report.db.service';
 
 @Injectable({ scope: Scope.REQUEST })
 export class SupabaseService {
@@ -77,5 +78,8 @@ export class SupabaseService {
   }
   get HistoryDBService(): HistoryDBService {
     return new HistoryDBService(this.supabaseAdminClient);
+  }
+  get ReportDBService(): ReportDBService {
+    return new ReportDBService(this.supabaseAdminClient);
   }
 }
