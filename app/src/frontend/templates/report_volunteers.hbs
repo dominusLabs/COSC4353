@@ -5,6 +5,7 @@
   <script src="/public/js/pagination.js"></script>
   <script src="/public/js/report.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.22/jspdf.plugin.autotable.min.js"></script>
 
 
   <div class="table-container">
@@ -44,7 +45,7 @@
       const table = document.getElementById("volunteerReportTable");
       const rows = table.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
       const data = [];
-
+      
       for (let i = 0; i < rows.length; i++) {
         const cells = rows[i].getElementsByTagName("td");
         data.push({
@@ -61,71 +62,90 @@
       return data;
     }
 
-    function convertToCSV(headers, objArray) {
-      const array = typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;
-      let str = '';
-      let row = '';
+function convertToCSV(headers, objArray) {
+  const array = typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;
+  let str = '';
+  let row = '';
 
-      // Add the provided headers to the CSV
-      row = headers.join(','); // Join headers array with commas
-      str += row + '\r\n'; // Add header row to the CSV string
+  // Add the headers to the CSV
+  row = headers.join(','); 
+  str += row + '\r\n'; 
 
-      // Create the data rows
-      for (let i = 0; i < array.length; i++) {
-        let line = '';
-        for (let index in array[i]) {
-          if (line !== '') line += ',';
-          line += array[i][index];
-        }
-        str += line + '\r\n';
-      }
-
-      return str;
+  // Create the data rows
+  for (let i = 0; i < array.length; i++) {
+    let line = '';
+    for (let index in array[i]) {
+      if (line !== '') line += ',';
+      line += `"${array[i][index]}"`;
     }
+    str += line + '\r\n';
+  }
 
-    function generateCSV() {
-      let jsonData = getData();
+  return str;
+}
 
-      // Specify the headers explicitly
-      const headers = [
-        'Volunteer',
-        'Event Name', 
-        'Description', 
-        'Required Skills', 
-        'Location', 
-        'Urgency', 
-        'Date', 
-        'Participation Status'
-      ];
 
-      const csv = convertToCSV(headers, jsonData);
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = 'output.csv';
-      link.click();
+function generateCSV() {
+  let jsonData = getData();
+
+  // Specify the headers explicitly
+  const headers = [
+    'Volunteer',
+    'Event Name',
+    'Description',
+    'Required Skills',
+    'Location',
+    'Urgency',
+    'Date',
+    'Participation Status'
+  ];
+
+  const csv = convertToCSV(headers, jsonData);
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = 'volunteer_report.csv'; // Correct filename
+  link.click();
+}
+
+
+function generatePDF() {
+  let jsonData = getData();
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({
+    orientation: "landscape"
+  });
+
+  doc.setFontSize(11);
+  doc.text('Volunteer Report:', 10, 10);
+
+  // Define column headers and their widths
+  const columns = [
+    { header: 'Volunteer', dataKey: 'volunteer' },
+    { header: 'Event Name', dataKey: 'event_name' },
+    { header: 'Description', dataKey: 'description' },
+    { header: 'Required Skills', dataKey: 'required_skills' },
+    { header: 'Location', dataKey: 'location' },
+    { header: 'Urgency', dataKey: 'urgency' },
+    { header: 'Date', dataKey: 'date' },
+    { header: 'Participation Status', dataKey: 'participation_status' }
+  ];
+
+  doc.autoTable({
+    columns: columns,
+    body: jsonData,
+    startY: 20, // Starting position on the Y axis
+    margin: { top: 10 }, // Margin from the top
+    theme: 'grid', // Theme for table styling
+    didDrawPage: function (data) {
+      doc.setFontSize(9);
     }
+  });
 
-    function generatePDF() {
-      let jsonData = getData();
-      console.log(jsonData)
-      const doc = new jspdf.jsPDF();
+  doc.save('volunteer_report.pdf'); // Save the PDF with the specified filename
+}
 
-      doc.setFontSize(16);
-      doc.text('Volunteer Report:', 10, 10);
 
-      jsonData.forEach((item, index) => {
-        doc.setFontSize(12);
-        doc.text(`Item ${index + 1}:`, 10, 20 + index * 20);
-        let yOffset = 10 + (index + 1) * 20;
-        for (const key in item) {
-          doc.text(`${key}: ${item[key]}`, 10, yOffset);
-          yOffset += 10;
-        }
-      });
-
-      doc.save('output.pdf');
-    }
   </script>
   <script src="/public/js/report.js"></script>
 {{/layout}}
